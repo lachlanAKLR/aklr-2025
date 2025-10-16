@@ -317,11 +317,74 @@ export type PROJECTS_QUERYResult = Array<{
     title: string | null;
   }> | null;
 }>;
+// Variable: PROJECT_QUERY
+// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    client,    title,    slug,    size,    mainImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    info,    projectTags[]->{      _id,      title    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url          }        }      }    }  }
+export type PROJECT_QUERYResult = {
+  _id: string;
+  client: string | null;
+  title: string | null;
+  slug: Slug | null;
+  size: "large" | "medium" | "small" | null;
+  mainImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number | null;
+          height: number | null;
+          aspectRatio: number | null;
+        } | null;
+      } | null;
+    } | null;
+    alt: string | null;
+  } | null;
+  info: BlockContent | null;
+  projectTags: Array<{
+    _id: string;
+    title: string | null;
+  }> | null;
+  projectImages: Array<
+    | {
+        type: "projectImage";
+        asset: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              dimensions: {
+                width: number | null;
+                height: number | null;
+                aspectRatio: number | null;
+              } | null;
+            } | null;
+          } | null;
+          altText: string | null;
+        } | null;
+      }
+    | {
+        type: "video";
+        videoFile: {
+          asset: {
+            _id: string;
+            url: string | null;
+          } | null;
+        } | null;
+        posterImage: {
+          asset: {
+            _id: string;
+            url: string | null;
+          } | null;
+        } | null;
+      }
+  > | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage{\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id, \n      title\n    }\n  }\n': PROJECTS_QUERYResult;
+    '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    info,\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECT_QUERYResult;
   }
 }

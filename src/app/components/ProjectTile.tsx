@@ -3,6 +3,7 @@ import Image from "next/image";
 import { dataset, projectId } from "@/sanity/env";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Link from "next/link";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -15,30 +16,34 @@ export default function ProjectTile({ project }: ProjectTileProps) {
     <div
       className={`self-end pb-20 ${project.size == "small" ? "col-span-3" : project.size == "medium" ? "col-span-4" : project.size == "large" ? "col-span-5" : null}`}
     >
-      <Image
-        src={builder
-          .image(project?.mainImage?.asset as SanityImageSource)
-          .width(2000)
-          .fit("max")
-          .auto("format")
-          .url()}
-        width={1000}
-        height={2000}
-        alt={project?.mainImage?.alt ?? ""}
-        className=""
-      />
+      <Link href={`/project/${project?.slug?.current}`}>
+        <Image
+          src={builder
+            .image(project?.mainImage?.asset as SanityImageSource)
+            .width(2000)
+            .fit("max")
+            .auto("format")
+            .url()}
+          width={1000}
+          height={2000}
+          alt={project?.mainImage?.alt ?? ""}
+          className=""
+        />
+      </Link>
       <div className="pt-3 pb-2">
-        <h2 className="text-base">
-          <span className="font-herbik-reg">
-            {project.client}
-            {project.title ? "," : " "}
-          </span>
-          {project.title ? (
-            <span className="font-herbik-italic"> {project.title}</span>
-          ) : null}
-        </h2>
+        <Link href={`/project/${project?.slug?.current}`}>
+          <h2 className="text-base">
+            <span className="font-herbik-reg">
+              {project.client}
+              {project.title ? "," : " "}
+            </span>
+            {project.title ? (
+              <span className="font-herbik-italic"> {project.title}</span>
+            ) : null}
+          </h2>
+        </Link>
       </div>
-      <div className="h-32 w-full">
+      <div className="relative -left-1 h-32 w-full">
         <div className="flex flex-wrap gap-2">
           {project?.projectTags?.map((tag, index) => (
             <p

@@ -8,11 +8,11 @@ export default function Nav() {
   const isStudio = pathname.includes("/studio");
 
   return isStudio ? null : (
-    <nav className="font-dia-bold flex w-full justify-between p-2 text-sm">
-      <div>AKLR</div>
+    <nav className="font-dia-bold fixed top-0 left-0 flex w-full justify-between p-2 text-base">
+      <Link href="/">AKLR</Link>
       <div>
-        <Link href="/projects">Projects</Link>,{" "}
-        <Link href="/overview">Index</Link>, <Link href="/studio">Studio</Link>
+        <Link href="/">Projects</Link>, <Link href="/overview">Index</Link>,{" "}
+        <Link href="/studio">Studio</Link>
       </div>
     </nav>
   );

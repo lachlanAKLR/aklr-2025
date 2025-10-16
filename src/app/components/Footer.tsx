@@ -7,7 +7,7 @@ export default function Footer() {
   const isStudio = pathname.includes("/studio");
 
   return isStudio ? null : (
-    <footer className="font-dia-bold site-grid text-sm uppercase">
+    <footer className="font-dia-bold site-grid pb-2 text-sm uppercase">
       <div className="col-start-1 col-end-5">
         <div className="pb-4">
           AKLR Studio — a creative partnership

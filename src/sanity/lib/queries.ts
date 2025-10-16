@@ -27,3 +27,66 @@ export const PROJECTS_QUERY = defineQuery(`
     }
   }
 `);
+
+export const PROJECT_QUERY = defineQuery(`
+  *[_type == "project" && slug.current == $slug][0]{
+    _id,
+    client,
+    title,
+    slug,
+    size,
+    mainImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions {
+            width,
+            height,
+            aspectRatio
+          }
+        }
+      },
+      alt
+    },
+    info,
+    projectTags[]->{
+      _id,
+      title
+    },
+    projectImages[] {
+      _type == "projectImage" => {
+        "type": _type,
+        asset {
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions {
+                width,
+                height,
+                aspectRatio
+              }
+            }
+          },
+          altText
+        }
+      },
+      _type == "video" => {
+        "type": _type,
+        videoFile {
+          asset->{
+            _id,
+            url
+          }
+        },
+        posterImage {
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
+    }
+  }
+`);
