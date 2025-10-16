@@ -1,26 +1,70 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-@theme inline {
+*::-webkit-scrollbar {
+  display: none;
+}
+
+@theme {
+  --font-herbik-reg: "Herbik Regular", sans-serif;
+  --font-herbik-italic: "Herbik Italic", sans-serif;
+  --font-dia-bold: "Dia Bold", sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-black: #241f21;
+  --color-white: #f7f0e7;
+
+  --font-size-xs: 12px;
+  --line-height-xs: 15px;
+  --letter-spacing-xs: 0.6px;
+
+  --font-size-sm: 16px;
+  --line-height-sm: 21px;
+
+  --font-size-base: 20px;
+  --line-height-base: 28px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .herbik-reg {
+    font-family: var(--font-herbik-reg);
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .herbik-italic {
+    font-family: var(--font-herbik-italic);
+  }
+  .dia-bold {
+    font-family: var(--font-dia-bold);
+  }
+
+  .text-xs {
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-xs);
+    letter-spacing: var(--letter-spacing-xs);
+  }
+
+  .text-sm {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-sm);
+    letter-spacing: var(--letter-spacing-sm);
+  }
+
+  .text-base {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    letter-spacing: var(--letter-spacing-base);
+  }
+
+  .site-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
