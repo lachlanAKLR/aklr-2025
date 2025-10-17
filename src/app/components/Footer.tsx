@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const pathname = usePathname();
-  const isStudio = pathname.includes("/studio");
+  const isStudio = pathname.includes("/admin");
 
   return isStudio ? null : (
     <footer className="font-dia-bold site-grid pb-2 text-sm uppercase">

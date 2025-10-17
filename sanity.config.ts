@@ -15,7 +15,7 @@ import { structure } from "./src/sanity/structure";
 import { media } from "sanity-plugin-media";
 
 export default defineConfig({
-  basePath: "/studio",
+  basePath: "/admin",
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder

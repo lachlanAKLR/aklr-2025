@@ -1,16 +1,16 @@
 import { sanityFetch } from "@/sanity/lib/live";
-import ProjectsGrid from "./components/ProjectsGrid";
 import { PROJECTS_QUERY } from "@/sanity/lib/queries";
-import PageWrapper from "./utils/PageWrapper";
+import ProjectsIndex from "../components/ProjectsIndex";
+import PageWrapper from "../utils/PageWrapper";
 
 export default async function Page() {
   const { data: projects } = await sanityFetch({ query: PROJECTS_QUERY });
 
   return (
-    <main>
+    <div>
       <PageWrapper>
-        <ProjectsGrid projects={projects} />
+        <ProjectsIndex projects={projects} />
       </PageWrapper>
-    </main>
+    </div>
   );
 }

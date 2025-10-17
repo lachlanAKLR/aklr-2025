@@ -1,26 +1,18 @@
-import { PortableText, PortableTextReactComponents } from "next-sanity";
+import { PortableText } from "next-sanity";
 import { PROJECT_QUERYResult } from "../../../sanity.types";
-import Image from "next/image";
 import { dataset, projectId } from "@/sanity/env";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { portableTextComponents } from "./PortableTextComponents";
+import FadeInImage from "../utils/FadeInImage";
 
 const builder = imageUrlBuilder({ projectId, dataset });
-
-const components: Partial<PortableTextReactComponents> = {
-  block: {
-    normal: ({ children }) => {
-      return <p className="font-herbik-reg pb-4 text-base">{children}</p>;
-    },
-  },
-};
 
 export default function ProjectContent({
   project,
 }: {
   project: PROJECT_QUERYResult;
 }) {
-  //   console.log(project);
   return (
     <div>
       <h2 className="relative top-[6.5px] left-20 w-fit text-base">
@@ -35,12 +27,15 @@ export default function ProjectContent({
       {project?.info ? (
         <div className="site-grid pt-6 pb-32">
           <div className="col-span-8">
-            <PortableText value={project.info} components={components} />
+            <PortableText
+              value={project.info}
+              components={portableTextComponents}
+            />
           </div>
           <div className="col-span-8 row-start-2 flex w-full gap-2">
             {project?.projectTags?.map((tag, index) => (
               <p
-                className="font-dia-bold h-8 w-fit shrink-0 rounded-4xl bg-gray-100 px-3 py-2 text-xs uppercase"
+                className="font-dia-bold h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-2.5 py-[5px] text-xs uppercase"
                 key={index}
               >
                 {tag.title}
@@ -50,7 +45,7 @@ export default function ProjectContent({
         </div>
       ) : null}
       <div className="site-grid pb-32">
-        <Image
+        <FadeInImage
           src={builder
             .image(project?.mainImage?.asset as SanityImageSource)
             .width(3000)
@@ -72,7 +67,7 @@ export default function ProjectContent({
 
             return (
               <div key={index} className={colSpanClass}>
-                <Image
+                <FadeInImage
                   src={builder
                     .image(image.asset.asset as SanityImageSource)
                     .width(3000)

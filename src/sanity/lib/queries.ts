@@ -7,7 +7,7 @@ export const PROJECTS_QUERY = defineQuery(`
     title,
     slug,
     size,
-    mainImage{
+    mainImage {
       asset->{
         _id,
         url,
@@ -22,8 +22,42 @@ export const PROJECTS_QUERY = defineQuery(`
       alt
     },
     projectTags[]->{
-      _id, 
+      _id,
       title
+    },
+    projectImages[] {
+      _type == "projectImage" => {
+        "type": _type,
+        asset {
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions {
+                width,
+                height,
+                aspectRatio
+              }
+            }
+          },
+          altText
+        }
+      },
+      _type == "video" => {
+        "type": _type,
+        videoFile {
+          asset->{
+            _id,
+            url
+          }
+        },
+        posterImage {
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
     }
   }
 `);
@@ -87,6 +121,78 @@ export const PROJECT_QUERY = defineQuery(`
           }
         }
       }
+    }
+  }
+`);
+
+export const STUDIO_QUERY = defineQuery(`
+  *[_type == "studio"][0]{
+    _id,
+    about,
+    address,
+    contact,
+    social,
+
+    studioImages[]{
+      _type == "projectImage" => {
+        "type": _type,
+        asset {
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions {
+                width,
+                height,
+                aspectRatio
+              }
+            }
+          },
+          altText
+        }
+      }
+    },
+
+    titledLists[]{
+      title,
+      items
+    },
+
+    media[] {
+      _type == "mediaItem" => {
+        _type,
+        title,
+        url,
+        description,
+        image {
+          asset->{
+            _id,
+            url,
+            metadata {
+              dimensions {
+                width,
+                height,
+                aspectRatio
+              }
+            }
+          }
+        }
+      }
+    },
+
+    bottomImage {
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions {
+            width,
+            height,
+            aspectRatio
+          }
+        }
+      },
+      alt
     }
   }
 `);

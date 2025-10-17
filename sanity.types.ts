@@ -13,6 +13,192 @@
  */
 
 // Source: schema.json
+export type TitledList = {
+  _type: "titledList";
+  title?: string;
+  items?: Array<string>;
+};
+
+export type MediaItem = {
+  _type: "mediaItem";
+  title?: string;
+  link?: string;
+  publisher?: string;
+  date?: string;
+};
+
+export type Studio = {
+  _id: string;
+  _type: "studio";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  about?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  address?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  contact?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  social?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  studioImages?: Array<
+    {
+      _key: string;
+    } & ProjectImage
+  >;
+  titledLists?: Array<
+    {
+      _key: string;
+    } & TitledList
+  >;
+  media?: Array<
+    {
+      _key: string;
+    } & MediaItem
+  >;
+  bottomImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
+
 export type Video = {
   _type: "video";
   videoFile?: {
@@ -271,6 +457,9 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
+  | TitledList
+  | MediaItem
+  | Studio
   | Video
   | ProjectTag
   | BlockContent
@@ -291,7 +480,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && defined(slug.current)] | order(orderRank) {    _id,    client,    title,    slug,    size,    mainImage{      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    projectTags[]->{      _id,       title    }  }
+// Query: *[_type == "project" && defined(slug.current)] | order(orderRank) {    _id,    client,    title,    slug,    size,    mainImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    projectTags[]->{      _id,      title    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url          }        }      }    }  }
 export type PROJECTS_QUERYResult = Array<{
   _id: string;
   client: string | null;
@@ -316,6 +505,40 @@ export type PROJECTS_QUERYResult = Array<{
     _id: string;
     title: string | null;
   }> | null;
+  projectImages: Array<
+    | {
+        type: "projectImage";
+        asset: {
+          asset: {
+            _id: string;
+            url: string | null;
+            metadata: {
+              dimensions: {
+                width: number | null;
+                height: number | null;
+                aspectRatio: number | null;
+              } | null;
+            } | null;
+          } | null;
+          altText: string | null;
+        } | null;
+      }
+    | {
+        type: "video";
+        videoFile: {
+          asset: {
+            _id: string;
+            url: string | null;
+          } | null;
+        } | null;
+        posterImage: {
+          asset: {
+            _id: string;
+            url: string | null;
+          } | null;
+        } | null;
+      }
+  > | null;
 }>;
 // Variable: PROJECT_QUERY
 // Query: *[_type == "project" && slug.current == $slug][0]{    _id,    client,    title,    slug,    size,    mainImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    info,    projectTags[]->{      _id,      title    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url          }        }      }    }  }
@@ -379,12 +602,196 @@ export type PROJECT_QUERYResult = {
       }
   > | null;
 } | null;
+// Variable: STUDIO_QUERY
+// Query: *[_type == "studio"][0]{    _id,    about,    address,    contact,    social,    studioImages[]{      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      }    },    titledLists[]{      title,      items    },    media[] {      _type == "mediaItem" => {        _type,        title,        url,        description,        image {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          }        }      }    },    bottomImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    }  }
+export type STUDIO_QUERYResult = {
+  _id: string;
+  about: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+  address: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+  contact: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+  social: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+  studioImages: Array<{
+    type: "projectImage";
+    asset: {
+      asset: {
+        _id: string;
+        url: string | null;
+        metadata: {
+          dimensions: {
+            width: number | null;
+            height: number | null;
+            aspectRatio: number | null;
+          } | null;
+        } | null;
+      } | null;
+      altText: string | null;
+    } | null;
+  }> | null;
+  titledLists: Array<{
+    title: string | null;
+    items: Array<string> | null;
+  }> | null;
+  media: Array<{
+    _type: "mediaItem";
+    title: string | null;
+    url: null;
+    description: null;
+    image: null;
+  }> | null;
+  bottomImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number | null;
+          height: number | null;
+          aspectRatio: number | null;
+        } | null;
+      } | null;
+    } | null;
+    alt: string | null;
+  } | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage{\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id, \n      title\n    }\n  }\n': PROJECTS_QUERYResult;
+    '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECTS_QUERYResult;
     '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    info,\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECT_QUERYResult;
+    '\n  *[_type == "studio"][0]{\n    _id,\n    about,\n    address,\n    contact,\n    social,\n\n    studioImages[]{\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      }\n    },\n\n    titledLists[]{\n      title,\n      items\n    },\n\n    media[] {\n      _type == "mediaItem" => {\n        _type,\n        title,\n        url,\n        description,\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          }\n        }\n      }\n    },\n\n    bottomImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    }\n  }\n': STUDIO_QUERYResult;
   }
 }

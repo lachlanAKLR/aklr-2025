@@ -4,6 +4,7 @@ import { dataset, projectId } from "@/sanity/env";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
+import FadeInImage from "../utils/FadeInImage";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -17,7 +18,7 @@ export default function ProjectTile({ project }: ProjectTileProps) {
       className={`self-end pb-20 ${project.size == "small" ? "col-span-3" : project.size == "medium" ? "col-span-4" : project.size == "large" ? "col-span-5" : null}`}
     >
       <Link href={`/project/${project?.slug?.current}`}>
-        <Image
+        <FadeInImage
           src={builder
             .image(project?.mainImage?.asset as SanityImageSource)
             .width(2000)
@@ -47,7 +48,7 @@ export default function ProjectTile({ project }: ProjectTileProps) {
         <div className="flex flex-wrap gap-2">
           {project?.projectTags?.map((tag, index) => (
             <p
-              className="font-dia-bold h-8 w-fit shrink-0 rounded-4xl bg-gray-100 px-3 py-2 text-xs uppercase"
+              className="font-dia-bold h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-2.5 py-[5px] text-center text-xs uppercase"
               key={index}
             >
               {tag.title}
