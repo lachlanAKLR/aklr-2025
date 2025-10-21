@@ -14,12 +14,12 @@ export default function Filter({
       <div className="flex w-1/2 cursor-pointer flex-wrap items-center justify-center gap-2">
         {projectTags.map((tag, index) => {
           const slug = tag.slug?.current || "";
-          const isSelected = selectedTags.includes(slug); // 👈 check array membership
+          const isSelected = selectedTags.includes(slug);
 
           return (
             <button
               key={index}
-              onClick={() => onFilterChange(slug)} // 👈 toggles handled in parent
+              onClick={() => onFilterChange(slug)}
               className={`font-dia-bold text-2xs h-6 cursor-pointer rounded-4xl px-2.5 py-[6.5px] uppercase transition-colors ${
                 isSelected
                   ? "bg-black text-white"
@@ -27,7 +27,9 @@ export default function Filter({
               }`}
             >
               {tag.title}
-              <span className="pl-1 opacity-70">{tag.count}</span>
+              <span className="pl-1 opacity-70">
+                ({String(tag.count).padStart(2, "0")})
+              </span>
             </button>
           );
         })}

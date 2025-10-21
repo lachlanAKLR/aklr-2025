@@ -79,18 +79,25 @@ export default function ProjectRow({ project }: ProjectTileProps) {
 
             if (image.type === "video" && image.posterImage?.asset) {
               return (
-                <div key={index}>
+                <motion.div
+                  key={index}
+                  variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                >
                   <video
-                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                     poster={image.posterImage.asset.url ?? ""}
-                    className="w-full"
+                    className="h-40 w-auto"
+                    onLoadedData={() => setLoadedCount((c) => c + 1)}
                   >
                     <source
                       src={image.videoFile?.asset?.url ?? ""}
                       type="video/mp4"
                     />
                   </video>
-                </div>
+                </motion.div>
               );
             }
 
@@ -119,7 +126,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
 
           {project?.projectTags?.map((tag, index) => (
             <motion.p
-              className="font-dia-bold relative top-1 h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-2.5 py-[5px] text-center text-xs uppercase"
+              className="font-dia-bold text-2xs relative top-1 h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-2.5 py-[6.5px] text-center uppercase"
               key={index}
               variants={{
                 rest: { opacity: 0 },
