@@ -23,7 +23,8 @@ export const PROJECTS_QUERY = defineQuery(`
     },
     projectTags[]->{
       _id,
-      title
+      title,
+      slug
     },
     projectImages[] {
       _type == "projectImage" => {
@@ -194,5 +195,15 @@ export const STUDIO_QUERY = defineQuery(`
       },
       alt
     }
+  }
+`);
+
+export const TAGS_QUERY = defineQuery(`
+  *[_type == "projectTag" && !(_id in path("drafts.**"))]
+  | order(title asc) {
+    _id,
+    title,
+    slug,
+    "count": count(*[_type == "project" && references(^._id)])
   }
 `);

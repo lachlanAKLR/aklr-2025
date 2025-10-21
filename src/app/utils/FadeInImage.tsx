@@ -8,7 +8,8 @@ export default function FadeInImage(props: ImageProps) {
     <Image
       {...props}
       className={`opacity-0 transition-opacity duration-500 ease-out ${props.className ?? ""}`}
-      onLoadingComplete={(img) => {
+      onLoad={(e) => {
+        const img = e.currentTarget;
         img.style.opacity = "1";
       }}
     />

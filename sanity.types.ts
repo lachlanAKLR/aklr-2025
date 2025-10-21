@@ -480,7 +480,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && defined(slug.current)] | order(orderRank) {    _id,    client,    title,    slug,    size,    mainImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    projectTags[]->{      _id,      title    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url          }        }      }    }  }
+// Query: *[_type == "project" && defined(slug.current)] | order(orderRank) {    _id,    client,    title,    slug,    size,    mainImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    projectTags[]->{      _id,      title,      slug    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url          }        }      }    }  }
 export type PROJECTS_QUERYResult = Array<{
   _id: string;
   client: string | null;
@@ -504,6 +504,7 @@ export type PROJECTS_QUERYResult = Array<{
   projectTags: Array<{
     _id: string;
     title: string | null;
+    slug: Slug | null;
   }> | null;
   projectImages: Array<
     | {
@@ -785,13 +786,22 @@ export type STUDIO_QUERYResult = {
     alt: string | null;
   } | null;
 } | null;
+// Variable: TAGS_QUERY
+// Query: *[_type == "projectTag" && !(_id in path("drafts.**"))]  | order(title asc) {    _id,    title,    slug,    "count": count(*[_type == "project" && references(^._id)])  }
+export type TAGS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  count: number;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECTS_QUERYResult;
+    '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id,\n      title,\n      slug\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECTS_QUERYResult;
     '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    info,\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECT_QUERYResult;
     '\n  *[_type == "studio"][0]{\n    _id,\n    about,\n    address,\n    contact,\n    social,\n\n    studioImages[]{\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      }\n    },\n\n    titledLists[]{\n      title,\n      items\n    },\n\n    media[] {\n      _type == "mediaItem" => {\n        _type,\n        title,\n        url,\n        description,\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          }\n        }\n      }\n    },\n\n    bottomImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    }\n  }\n': STUDIO_QUERYResult;
+    '\n  *[_type == "projectTag" && !(_id in path("drafts.**"))]\n  | order(title asc) {\n    _id,\n    title,\n    slug,\n    "count": count(*[_type == "project" && references(^._id)])\n  }\n': TAGS_QUERYResult;
   }
 }

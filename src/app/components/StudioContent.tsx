@@ -1,7 +1,6 @@
 import { PortableText } from "next-sanity";
 import { STUDIO_QUERYResult } from "../../../sanity.types";
 import { portableTextComponents } from "./PortableTextComponents";
-import Image from "next/image";
 import { dataset, projectId } from "@/sanity/env";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
