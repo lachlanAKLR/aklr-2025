@@ -12,12 +12,30 @@ const builder = imageUrlBuilder({ projectId, dataset });
 
 export interface ProjectTileProps {
   project: PROJECTS_QUERYResult[number];
+  filtered?: boolean;
+  selectedTags: string[];
+  onFilterChange?: (slug: string) => void;
 }
 
-export default function ProjectTile({ project }: ProjectTileProps) {
+export default function ProjectTile({
+  project,
+  filtered = false,
+  selectedTags,
+  onFilterChange,
+}: ProjectTileProps) {
   return (
     <motion.div
-      className={`self-end pb-20 ${project.size == "small" ? "col-span-3" : project.size == "medium" ? "col-span-4" : project.size == "large" ? "col-span-5" : null}`}
+      className={`self-end pb-20 ${
+        filtered
+          ? "col-span-4" // uniform layout when filtered
+          : project.size == "small"
+            ? "col-span-3"
+            : project.size == "medium"
+              ? "col-span-4"
+              : project.size == "large"
+                ? "col-span-5"
+                : null
+      }`}
       initial="rest"
       whileHover="hover"
     >
@@ -59,19 +77,27 @@ export default function ProjectTile({ project }: ProjectTileProps) {
             },
           }}
         >
-          {project?.projectTags?.map((tag, index) => (
-            <motion.p
-              key={index}
-              variants={{
-                rest: { opacity: 0 },
-                hover: { opacity: 1 },
-              }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="font-dia-bold h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-2.5 py-[5px] text-center text-xs uppercase"
-            >
-              {tag.title}
-            </motion.p>
-          ))}
+          {project?.projectTags?.map((tag, index) => {
+            const isSelected = selectedTags.includes(tag.slug?.current || "");
+            return (
+              <motion.button
+                key={index}
+                onClick={() => onFilterChange?.(tag.slug?.current || "")}
+                variants={{
+                  rest: { opacity: 0 },
+                  hover: { opacity: 1 },
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className={`font-dia-bold h-6 w-fit shrink-0 cursor-pointer rounded-4xl px-2.5 py-[5px] text-center text-xs uppercase transition-colors ${
+                  isSelected
+                    ? "bg-black text-white"
+                    : "bg-gray-100 text-black hover:bg-black hover:text-white"
+                }`}
+              >
+                {tag.title}
+              </motion.button>
+            );
+          })}
         </motion.div>
       </div>
     </motion.div>

@@ -12,25 +12,42 @@ export default function ProjectsGrid({
   projects: PROJECTS_QUERYResult;
   projectTags: TAGS_QUERYResult;
 }) {
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const filteredProjects = selectedTag
-    ? projects.filter((project) =>
-        project.projectTags?.some((tag) => tag?.slug?.current === selectedTag),
-      )
-    : projects;
+  const filteredProjects =
+    selectedTags.length > 0
+      ? projects.filter((project) =>
+          project.projectTags?.some((tag) =>
+            selectedTags.includes(tag.slug?.current || ""),
+          ),
+        )
+      : projects;
+
+  const handleTagClick = (slug: string) => {
+    setSelectedTags(
+      (prev) =>
+        prev.includes(slug)
+          ? prev.filter((t) => t !== slug) // remove tag
+          : [...prev, slug], // add tag
+    );
+  };
 
   return (
     <div>
       <Filter
         projectTags={projectTags}
-        selectedTag={selectedTag}
-        onFilterChange={(slug) => setSelectedTag(slug)}
-        resetFilter={() => setSelectedTag(null)}
+        selectedTags={selectedTags}
+        onFilterChange={handleTagClick}
       />
       <div className="site-grid py-20">
         {filteredProjects.map((project, index) => (
-          <ProjectTile key={index} project={project} />
+          <ProjectTile
+            key={index}
+            project={project}
+            filtered={selectedTags.length > 0}
+            selectedTags={selectedTags}
+            onFilterChange={handleTagClick}
+          />
         ))}
       </div>
     </div>
