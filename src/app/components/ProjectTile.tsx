@@ -88,7 +88,7 @@ export default function ProjectTile({
                   hover: { opacity: 1 },
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className={`font-dia-bold h-6 w-fit shrink-0 cursor-pointer rounded-4xl px-2.5 py-[5px] text-center text-xs uppercase transition-colors ${
+                className={`font-dia-bold text-2xs h-6 w-fit shrink-0 cursor-pointer rounded-4xl px-2.5 py-[6.5px] text-center uppercase transition-colors ${
                   isSelected
                     ? "bg-black text-white"
                     : "bg-gray-100 text-black hover:bg-black hover:text-white"

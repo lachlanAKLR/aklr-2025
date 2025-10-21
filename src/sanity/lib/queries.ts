@@ -118,7 +118,13 @@ export const PROJECT_QUERY = defineQuery(`
         posterImage {
           asset->{
             _id,
-            url
+            url,
+            metadata {
+              dimensions {
+                width,
+                height
+              }
+            }
           }
         }
       }

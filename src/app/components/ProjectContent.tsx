@@ -35,7 +35,7 @@ export default function ProjectContent({
           <div className="col-span-8 row-start-2 flex w-full gap-2">
             {project?.projectTags?.map((tag, index) => (
               <p
-                className="font-dia-bold h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-2.5 py-[5px] text-xs uppercase"
+                className="font-dia-bold text-2xs h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-3.5 py-[6.5px] uppercase"
                 key={index}
               >
                 {tag.title}
@@ -83,12 +83,22 @@ export default function ProjectContent({
           }
 
           if (image.type === "video" && image.posterImage?.asset) {
+            const width =
+              image.posterImage.asset.metadata?.dimensions?.width ?? 0;
+            const height =
+              image.posterImage.asset.metadata?.dimensions?.height ?? 0;
+            const isLandscape = width > height;
+            const colSpanClass = isLandscape ? "col-span-12" : "col-span-6";
+
             return (
-              <div key={index}>
+              <div key={index} className={colSpanClass}>
                 <video
-                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                   poster={image.posterImage.asset.url ?? ""}
-                  className="w-full"
+                  className="h-auto w-full object-cover"
                 >
                   <source
                     src={image.videoFile?.asset?.url ?? ""}

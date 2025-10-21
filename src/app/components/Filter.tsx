@@ -20,7 +20,7 @@ export default function Filter({
             <button
               key={index}
               onClick={() => onFilterChange(slug)} // 👈 toggles handled in parent
-              className={`font-dia-bold h-6 cursor-pointer rounded-4xl px-2.5 py-[5px] text-xs uppercase transition-colors ${
+              className={`font-dia-bold text-2xs h-6 cursor-pointer rounded-4xl px-2.5 py-[6.5px] uppercase transition-colors ${
                 isSelected
                   ? "bg-black text-white"
                   : "bg-gray-100 text-black hover:bg-black hover:text-white"

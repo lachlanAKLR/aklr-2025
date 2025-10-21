@@ -19,8 +19,12 @@
   --color-black: #241f21;
   --color-white: #f7f0e7;
 
-  --font-size-xs: 10px;
-  --line-height-xs: 12px;
+  --font-size-2xs: 10px;
+  --line-height-2xs: 12px;
+  --letter-spacing-2xs: 0.5px;
+
+  --font-size-xs: 12px;
+  --line-height-xs: 14px;
   --letter-spacing-xs: 0.6px;
 
   --font-size-sm: 16px;
@@ -40,6 +44,12 @@
   }
   .dia-bold {
     font-family: var(--font-dia-bold);
+  }
+
+  .text-2xs {
+    font-size: var(--font-size-2xs);
+    line-height: var(--line-height-2xs);
+    letter-spacing: var(--letter-spacing-2xs);
   }
 
   .text-xs {
