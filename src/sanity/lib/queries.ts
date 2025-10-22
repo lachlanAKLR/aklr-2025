@@ -71,6 +71,7 @@ export const PROJECT_QUERY = defineQuery(`
     slug,
     size,
     mainImage {
+      isFourColumn,
       asset->{
         _id,
         url,
@@ -82,7 +83,8 @@ export const PROJECT_QUERY = defineQuery(`
           }
         }
       },
-      alt
+      alt,
+
     },
     info,
     projectTags[]->{
@@ -92,6 +94,7 @@ export const PROJECT_QUERY = defineQuery(`
     projectImages[] {
       _type == "projectImage" => {
         "type": _type,
+        isFourColumn,
         asset {
           asset->{
             _id,
@@ -109,6 +112,7 @@ export const PROJECT_QUERY = defineQuery(`
       },
       _type == "video" => {
         "type": _type,
+        isFourColumn,
         videoFile {
           asset->{
             _id,

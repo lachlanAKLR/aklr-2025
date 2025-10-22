@@ -1409,6 +1409,13 @@
             }
           },
           "optional": true
+        },
+        "isFourColumn": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
         }
       }
     }
@@ -1808,6 +1815,13 @@
             }
           },
           "optional": true
+        },
+        "isFourColumn": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
         }
       }
     }
@@ -1931,6 +1945,13 @@
               "type": "objectAttribute",
               "value": {
                 "type": "string"
+              },
+              "optional": true
+            },
+            "isFourColumn": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "boolean"
               },
               "optional": true
             },

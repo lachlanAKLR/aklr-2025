@@ -32,6 +32,13 @@ export const projectType = defineType({
           title: "Alternative text",
           description: "Client, Description, AKLR Studio.",
         },
+        {
+          name: "isFourColumn",
+          title: "4 Column (default 6)",
+          type: "boolean",
+          initialValue: false,
+          options: { layout: "switch" },
+        },
       ],
     }),
     defineField({

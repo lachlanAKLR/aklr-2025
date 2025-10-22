@@ -18,15 +18,23 @@ export default defineType({
       title: "Poster Image",
       type: "image",
     }),
+    defineField({
+      name: "isFourColumn",
+      title: "4 Column (default 6)",
+      type: "boolean",
+      initialValue: false,
+      options: { layout: "switch" },
+    }),
   ],
   preview: {
     select: {
-      title: "text.en",
       media: "posterImage",
+      isFourColumn: "isFourColumn",
     },
-    prepare({ title, media }) {
+    prepare({ media, isFourColumn }) {
       return {
-        title: title || "Video",
+        title: "Video",
+        subtitle: isFourColumn ? "4 Column" : "Default Width",
         media,
       };
     },

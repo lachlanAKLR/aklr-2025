@@ -13,6 +13,8 @@ export default function ProjectContent({
 }: {
   project: PROJECT_QUERYResult;
 }) {
+  console.log(project?.mainImage?.isFourColumn);
+
   return (
     <div>
       <h2 className="relative top-[6.5px] left-20 w-fit text-base">
@@ -55,7 +57,7 @@ export default function ProjectContent({
           width={1000}
           height={2000}
           alt={project?.mainImage?.alt ?? ""}
-          className="col-span-6"
+          className={`${project?.mainImage?.isFourColumn ? "col-span-4" : "col-span-6"}`}
         />
 
         {project?.projectImages?.map((image, index) => {
@@ -63,7 +65,11 @@ export default function ProjectContent({
             const width = image.asset.asset.metadata?.dimensions?.width ?? 0;
             const height = image.asset.asset.metadata?.dimensions?.height ?? 0;
             const isLandscape = width > height;
-            const colSpanClass = isLandscape ? "col-span-12" : "col-span-6";
+            const colSpanClass = isLandscape
+              ? "col-span-12"
+              : image?.isFourColumn
+                ? "col-span-4"
+                : "col-span-6";
 
             return (
               <div key={index} className={colSpanClass}>
@@ -88,7 +94,11 @@ export default function ProjectContent({
             const height =
               image.posterImage.asset.metadata?.dimensions?.height ?? 0;
             const isLandscape = width > height;
-            const colSpanClass = isLandscape ? "col-span-12" : "col-span-6";
+            const colSpanClass = isLandscape
+              ? "col-span-12"
+              : image?.isFourColumn
+                ? "col-span-4"
+                : "col-span-6";
 
             return (
               <div key={index} className={colSpanClass}>

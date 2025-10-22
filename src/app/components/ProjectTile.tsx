@@ -23,11 +23,12 @@ export default function ProjectTile({
   selectedTags,
   onFilterChange,
 }: ProjectTileProps) {
+  console.log(project);
   return (
     <motion.div
       className={`self-end pb-20 ${
         filtered
-          ? "col-span-4" // uniform layout when filtered
+          ? "col-span-4"
           : project.size == "small"
             ? "col-span-3"
             : project.size == "medium"
