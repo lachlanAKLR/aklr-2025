@@ -8,9 +8,12 @@ export default function Nav() {
   const isStudio = pathname.includes("/admin");
 
   return isStudio ? null : (
-    <nav className="font-dia-bold pointer-events-auto fixed top-0 left-0 flex w-full justify-between p-2 text-base">
-      <Link href="/">AKLR</Link>
-      <div>
+    <nav>
+      <div className="font-dia-bold fixed top-2 left-2 text-base">
+        <Link href="/">AKLR</Link>
+      </div>
+
+      <div className="font-dia-bold fixed top-2 right-2 text-base">
         <Link href="/">Projects</Link>, <Link href="/overview">Index</Link>,{" "}
         <Link href="/studio">Studio</Link>
       </div>

@@ -37,7 +37,7 @@ export default function ProjectContent({
           <div className="col-span-8 row-start-2 flex w-full gap-2">
             {project?.projectTags?.map((tag, index) => (
               <p
-                className="font-dia-bold text-2xs h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-3.5 py-[6.5px] uppercase"
+                className="font-dia-bold text-2xs bg-grey-1 h-6 w-fit shrink-0 rounded-4xl px-3.5 py-[6.5px] uppercase"
                 key={index}
               >
                 {tag.title}

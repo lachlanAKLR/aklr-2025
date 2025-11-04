@@ -7,6 +7,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
 import FadeInImage from "../utils/FadeInImage";
 import { motion } from "framer-motion";
+import useIsDesktop from "../utils/useIsDesktop";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -23,18 +24,18 @@ export default function ProjectTile({
   selectedTags,
   onFilterChange,
 }: ProjectTileProps) {
-  console.log(project);
+  const isDesktop = useIsDesktop();
   return (
     <motion.div
-      className={`self-end pb-20 ${
+      className={`self-end pb-10 md:pb-20 ${
         filtered
-          ? "col-span-4"
+          ? "col-span-12 md:col-span-4"
           : project.size == "small"
-            ? "col-span-3"
+            ? "col-span-12 md:col-span-3"
             : project.size == "medium"
-              ? "col-span-4"
+              ? "col-span-12 md:col-span-4"
               : project.size == "large"
-                ? "col-span-5"
+                ? "col-span-12 md:col-span-5"
                 : null
       }`}
       initial="rest"
@@ -67,7 +68,7 @@ export default function ProjectTile({
           </h2>
         </Link>
       </div>
-      <div className="relative -left-1 h-32 w-full">
+      <div className="relative -left-1 h-24 w-full md:h-32">
         <motion.div
           className="flex flex-wrap gap-2"
           variants={{
@@ -80,23 +81,35 @@ export default function ProjectTile({
         >
           {project?.projectTags?.map((tag, index) => {
             const isSelected = selectedTags.includes(tag.slug?.current || "");
-            return (
+            return isDesktop ? (
               <motion.button
                 key={index}
                 onClick={() => onFilterChange?.(tag.slug?.current || "")}
                 variants={{
-                  rest: { opacity: 0 },
+                  rest: { opacity: isDesktop ? 0 : 1 },
                   hover: { opacity: 1 },
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className={`font-dia-bold text-2xs h-6 w-fit shrink-0 cursor-pointer rounded-4xl px-2.5 py-[6.5px] text-center uppercase transition-colors ${
                   isSelected
-                    ? "bg-black text-white"
-                    : "bg-gray-100 text-black hover:bg-black hover:text-white"
+                    ? "bg-grey-2"
+                    : "hover:bg-grey-2 bg-grey-1 text-black"
                 }`}
               >
                 {tag.title}
               </motion.button>
+            ) : (
+              <button
+                key={index}
+                onClick={() => onFilterChange?.(tag.slug?.current || "")}
+                className={`font-dia-bold text-2xs h-6 w-fit shrink-0 cursor-pointer rounded-4xl px-2.5 py-[6.5px] text-center uppercase transition-colors ${
+                  isSelected
+                    ? "bg-grey-2"
+                    : "hover:bg-grey-2 bg-grey-1 text-black"
+                }`}
+              >
+                {tag.title}
+              </button>
             );
           })}
         </motion.div>

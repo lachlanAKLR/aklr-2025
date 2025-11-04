@@ -3,6 +3,7 @@
 * {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  font-variant-numeric: slashed-zero;
 }
 
 *::-webkit-scrollbar {
@@ -32,6 +33,9 @@
 
   --font-size-base: 20px;
   --line-height-base: 28px;
+
+  --color-grey-1: #e2e2e2;
+  --color-grey-2: #bbbbbb;
 }
 
 @layer utilities {

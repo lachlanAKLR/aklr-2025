@@ -13,6 +13,7 @@ export default function ProjectsGrid({
   projectTags: TAGS_QUERYResult;
 }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const totalProjects = projects.length;
 
   const filteredProjects =
     selectedTags.length > 0
@@ -24,11 +25,13 @@ export default function ProjectsGrid({
       : projects;
 
   const handleTagClick = (slug: string) => {
-    setSelectedTags(
-      (prev) =>
-        prev.includes(slug)
-          ? prev.filter((t) => t !== slug) // remove tag
-          : [...prev, slug], // add tag
+    if (slug === "") {
+      setSelectedTags([]);
+      return;
+    }
+
+    setSelectedTags((prev) =>
+      prev.includes(slug) ? prev.filter((t) => t !== slug) : [...prev, slug],
     );
   };
 
@@ -38,6 +41,7 @@ export default function ProjectsGrid({
         projectTags={projectTags}
         selectedTags={selectedTags}
         onFilterChange={handleTagClick}
+        totalProjects={totalProjects}
       />
       <div className="site-grid py-20">
         {filteredProjects.map((project, index) => (
