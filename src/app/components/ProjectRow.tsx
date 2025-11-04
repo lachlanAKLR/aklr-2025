@@ -7,7 +7,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useIsDesktop from "../utils/useIsDesktop";
 
 const builder = imageUrlBuilder({ projectId, dataset });
@@ -18,12 +18,16 @@ export interface ProjectTileProps {
 
 export default function ProjectRow({ project }: ProjectTileProps) {
   const [loadedCount, setLoadedCount] = useState(0);
-  const isDesktop = useIsDesktop();
+
   const totalImages =
     1 +
-    (project?.projectImages?.filter((img) => img.type === "projectImage")
-      ?.length ?? 0);
+    (project?.projectImages?.filter(
+      (img) => img.type === "projectImage" && img.asset?.asset,
+    ).length ?? 0);
+
   const allLoaded = loadedCount >= totalImages;
+
+  const isDesktop = useIsDesktop();
 
   return (
     <motion.div initial="rest" whileHover="hover">
@@ -52,6 +56,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                   .url()}
                 width={1000}
                 height={2000}
+                priority
                 onLoad={() => setLoadedCount((c) => c + 1)}
                 alt={project?.mainImage?.alt ?? ""}
                 className="h-40 w-auto"
@@ -75,6 +80,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                         .url()}
                       width={1000}
                       height={1500}
+                      priority
                       onLoad={() => setLoadedCount((c) => c + 1)}
                       alt={image.asset.altText ?? ""}
                       className="h-40 w-auto"
