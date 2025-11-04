@@ -8,7 +8,7 @@ export default function ProjectsIndex({
 }) {
   return (
     <div>
-      <div className="px-2 py-20">
+      <div className="py-20 pl-2">
         {projects.map((project, index) => (
           <ProjectRow key={index} project={project} />
         ))}
