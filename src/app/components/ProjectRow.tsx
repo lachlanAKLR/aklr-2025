@@ -42,19 +42,21 @@ export default function ProjectRow({ project }: ProjectTileProps) {
             className="flex-shrink-0"
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
           >
-            <Image
-              src={builder
-                .image(project?.mainImage?.asset as SanityImageSource)
-                .width(3000)
-                .fit("max")
-                .auto("format")
-                .url()}
-              width={1000}
-              height={2000}
-              onLoad={() => setLoadedCount((c) => c + 1)}
-              alt={project?.mainImage?.alt ?? ""}
-              className="h-40 w-auto"
-            />
+            <Link href={`/project/${project?.slug?.current}`}>
+              <Image
+                src={builder
+                  .image(project?.mainImage?.asset as SanityImageSource)
+                  .width(isDesktop ? 2000 : 800)
+                  .fit("max")
+                  .auto("format")
+                  .url()}
+                width={1000}
+                height={2000}
+                onLoad={() => setLoadedCount((c) => c + 1)}
+                alt={project?.mainImage?.alt ?? ""}
+                className="h-40 w-auto"
+              />
+            </Link>
           </motion.div>
           {project?.projectImages?.map((image, index) => {
             if (image.type === "projectImage" && image.asset?.asset) {
@@ -67,7 +69,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                     <Image
                       src={builder
                         .image(image.asset.asset as SanityImageSource)
-                        .width(3000)
+                        .width(isDesktop ? 2000 : 800)
                         .fit("max")
                         .auto("format")
                         .url()}
@@ -121,13 +123,15 @@ export default function ProjectRow({ project }: ProjectTileProps) {
         }}
       >
         <h2 className="pr-5 text-base">
-          <span className="font-herbik-reg">
-            {project.client}
-            {project.title ? "," : " "}
-          </span>
-          {project.title ? (
-            <span className="font-herbik-italic"> {project.title}</span>
-          ) : null}
+          <Link href={`/project/${project?.slug?.current}`}>
+            <span className="font-herbik-reg">
+              {project.client}
+              {project.title ? "," : " "}
+            </span>
+            {project.title ? (
+              <span className="font-herbik-italic"> {project.title}</span>
+            ) : null}
+          </Link>
         </h2>
 
         {isDesktop ? (
