@@ -17,7 +17,7 @@ export default function ProjectContent({
 
   return (
     <div>
-      <h2 className="inherit top-[6.5px] left-20 w-fit px-2 pt-10 text-base md:relative md:px-0 md:pt-0">
+      <h2 className="inherit top-[6.5px] left-20 w-fit px-2 pt-16 text-sm md:relative md:px-0 md:pt-0 md:text-base">
         <span className="font-herbik-reg">
           {project?.client}
           {project?.title ? "," : " "}
@@ -27,7 +27,7 @@ export default function ProjectContent({
         ) : null}
       </h2>
       {project?.mainImage ? (
-        <div className="site-grid block pt-4 md:hidden">
+        <div className="site-grid block pt-2 md:hidden">
           <FadeInImage
             src={builder
               .image(project?.mainImage?.asset as SanityImageSource)
@@ -43,7 +43,7 @@ export default function ProjectContent({
         </div>
       ) : null}
       {project?.info ? (
-        <div className="site-grid pt-6 pb-20 md:pb-32">
+        <div className="site-grid pt-2 pb-16 md:pt-6 md:pb-32">
           <div className="col-span-12 md:col-span-8">
             <PortableText
               value={project.info}
@@ -62,7 +62,7 @@ export default function ProjectContent({
           </div>
         </div>
       ) : null}
-      <div className="site-grid pb-32">
+      <div className="site-grid pb-24 md:pb-32">
         {project?.mainImage ? (
           <FadeInImage
             src={builder

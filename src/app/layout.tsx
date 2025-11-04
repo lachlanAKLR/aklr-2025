@@ -59,6 +59,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+
+  other: {
+    "format-detection": "telephone=no, address=no, email=no",
+  },
 };
 
 export default function RootLayout({

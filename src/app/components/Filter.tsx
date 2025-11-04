@@ -20,7 +20,7 @@ export default function Filter({
   const tagAmount = isDesktop ? 8 : 5;
 
   return (
-    <div className="flex w-full items-center justify-center pt-20 pb-10 md:pt-4">
+    <div className="hidden w-full items-center justify-center pt-20 pb-10 md:flex md:pt-4">
       <div className="flex w-full flex-wrap items-start justify-start gap-2 px-2 md:w-1/2 md:items-center md:justify-center">
         <button
           onClick={() => onFilterChange("")}

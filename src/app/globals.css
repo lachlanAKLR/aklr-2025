@@ -6,6 +6,21 @@
   font-variant-numeric: slashed-zero;
 }
 
+html {
+  -webkit-touch-callout: none; /* Prevents long-press actions */
+  -webkit-user-select: text; /* Allows normal text selection */
+}
+
+a[href^="tel"],
+a[href^="mailto"],
+a[href^="sms"],
+a[href^="maps"],
+a[href^="geo"],
+a[href^="address"] {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
 *::-webkit-scrollbar {
   display: none;
 }
@@ -80,5 +95,24 @@
     gap: 8px;
     padding-left: 8px;
     padding-right: 8px;
+  }
+
+  @media (min-width: 768px) {
+    .md\:text-2xs {
+      font-size: var(--font-size-xs);
+      line-height: var(--line-height-xs);
+    }
+    .md\:text-xs {
+      font-size: var(--font-size-xs);
+      line-height: var(--line-height-xs);
+    }
+    .md\:text-sm {
+      font-size: var(--font-size-xs);
+      line-height: var(--line-height-xs);
+    }
+    .md\:text-base {
+      font-size: var(--font-size-xs);
+      line-height: var(--line-height-xs);
+    }
   }
 }

@@ -7,7 +7,7 @@ export default function Footer() {
   const isStudio = pathname.includes("/admin");
 
   return isStudio ? null : (
-    <footer className="font-dia-bold site-grid pb-2 text-sm uppercase">
+    <footer className="font-dia-bold site-grid pb-2 text-xs uppercase md:text-sm">
       <div className="col-span-12 md:col-start-1 md:col-end-5">
         <div className="pb-4">
           AKLR Studio — a creative partnership
@@ -39,7 +39,7 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <div className="col-span-12 pt-10 text-xs md:col-start-9 md:col-end-13 md:pt-0">
+      <div className="text-2xs col-span-12 pt-10 md:col-start-9 md:col-end-13 md:pt-0 md:text-xs">
         <p>©AKLR Studio, {new Date().getFullYear()}</p>
         <p>
           We acknowledge the Boon Wurrung & Wurundjeri peoples of the Kulin

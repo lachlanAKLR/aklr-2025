@@ -27,7 +27,7 @@ export default function ProjectTile({
   const isDesktop = useIsDesktop();
   return (
     <motion.div
-      className={`self-end pb-10 md:pb-20 ${
+      className={`self-end pb-5 md:pb-20 ${
         filtered
           ? "col-span-12 md:col-span-4"
           : project.size == "small"

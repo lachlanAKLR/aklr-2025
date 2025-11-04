@@ -76,12 +76,15 @@ export default function StudioContent({
           <div className="site-grid col-span-12 md:col-span-8">
             {content.titledLists.map((list, index) => (
               <div key={index} className="col-span-6 pt-16">
-                <div className="font-dia-bold text-sm uppercase">
+                <div className="font-dia-bold text-xs uppercase md:text-sm">
                   {list.title}
                 </div>
                 {Array.isArray(list.items) &&
                   list.items.map((item, j) => (
-                    <div key={j} className="font-herbik-reg text-base">
+                    <div
+                      key={j}
+                      className="font-herbik-reg text-sm md:text-base"
+                    >
                       {item}
                     </div>
                   ))}
