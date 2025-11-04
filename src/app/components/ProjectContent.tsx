@@ -115,8 +115,8 @@ export default function ProjectContent({
             const colSpanClass = isLandscape
               ? "col-span-12"
               : image?.isFourColumn
-                ? "col-span-4"
-                : "col-span-6";
+                ? "col-span-12 md:col-span-4"
+                : "col-span-12 md:col-span-6";
 
             return (
               <div key={index} className={colSpanClass}>

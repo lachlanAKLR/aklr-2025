@@ -7,8 +7,8 @@
 }
 
 html {
-  -webkit-touch-callout: none; /* Prevents long-press actions */
-  -webkit-user-select: text; /* Allows normal text selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: text;
 }
 
 a[href^="tel"],
@@ -99,20 +99,24 @@ a[href^="address"] {
 
   @media (min-width: 768px) {
     .md\:text-2xs {
-      font-size: var(--font-size-xs);
-      line-height: var(--line-height-xs);
+      font-size: var(--font-size-2xs);
+      line-height: var(--line-height-2xs);
+      letter-spacing: var(--letter-spacing-2xs);
     }
     .md\:text-xs {
       font-size: var(--font-size-xs);
       line-height: var(--line-height-xs);
+      letter-spacing: var(--letter-spacing-xs);
     }
     .md\:text-sm {
-      font-size: var(--font-size-xs);
-      line-height: var(--line-height-xs);
+      font-size: var(--font-size-sm);
+      line-height: var(--line-height-sm);
+      letter-spacing: var(--letter-spacing-sm);
     }
     .md\:text-base {
-      font-size: var(--font-size-xs);
-      line-height: var(--line-height-xs);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-base);
+      letter-spacing: var(--letter-spacing-base);
     }
   }
 }

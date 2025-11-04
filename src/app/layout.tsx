@@ -73,7 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased ${herbikReg.variable} ${herbikIta.variable} ${diaBold.variable}`}
+        className={`text-black antialiased ${herbikReg.variable} ${herbikIta.variable} ${diaBold.variable}`}
       >
         <Nav />
         {children}
