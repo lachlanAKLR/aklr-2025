@@ -17,7 +17,7 @@ export default function StudioContent({
     <>
       <div className="site-grid pt-[52px]">
         {content?.about ? (
-          <div className="col-span-8">
+          <div className="col-span-12 md:col-span-8">
             <PortableText
               value={content?.about}
               components={portableTextComponents}
@@ -25,9 +25,9 @@ export default function StudioContent({
           </div>
         ) : null}
       </div>
-      <div className="site-grid pb-20">
+      <div className="site-grid pb-10 md:pb-20">
         {content?.address ? (
-          <div className="col-span-4">
+          <div className="col-span-12 md:col-span-4">
             <PortableText
               value={content?.address}
               components={portableTextComponents}
@@ -35,7 +35,7 @@ export default function StudioContent({
           </div>
         ) : null}
         {content?.contact ? (
-          <div className="col-span-2">
+          <div className="col-span-12 md:col-span-2">
             <PortableText
               value={content?.contact}
               components={portableTextComponents}
@@ -43,7 +43,7 @@ export default function StudioContent({
           </div>
         ) : null}
         {content?.social ? (
-          <div className="col-span-2">
+          <div className="col-span-12 md:col-span-2">
             <PortableText
               value={content?.social}
               components={portableTextComponents}
@@ -54,7 +54,7 @@ export default function StudioContent({
       {content?.studioImages && (
         <div className="site-grid">
           {content.studioImages.map((image, index) => (
-            <div key={index} className="col-span-4">
+            <div key={index} className="col-span-6 md:col-span-4">
               <FadeInImage
                 src={builder
                   .image(image?.asset?.asset as SanityImageSource)
@@ -73,23 +73,25 @@ export default function StudioContent({
       )}
       {content?.titledLists && (
         <div className="site-grid">
-          {content.titledLists.map((list, index) => (
-            <div key={index} className="col-span-4 pt-16">
-              <div className="font-dia-bold text-sm uppercase">
-                {list.title}
+          <div className="site-grid col-span-12 md:col-span-8">
+            {content.titledLists.map((list, index) => (
+              <div key={index} className="col-span-6 pt-16">
+                <div className="font-dia-bold text-sm uppercase">
+                  {list.title}
+                </div>
+                {Array.isArray(list.items) &&
+                  list.items.map((item, j) => (
+                    <div key={j} className="font-herbik-reg text-base">
+                      {item}
+                    </div>
+                  ))}
               </div>
-              {Array.isArray(list.items) &&
-                list.items.map((item, j) => (
-                  <div key={j} className="font-herbik-reg text-base">
-                    {item}
-                  </div>
-                ))}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
       {content?.bottomImage && (
-        <div className="site-grid py-96">
+        <div className="site-grid py-32 md:py-96">
           <FadeInImage
             src={builder
               .image(content?.bottomImage?.asset as SanityImageSource)
@@ -100,7 +102,7 @@ export default function StudioContent({
             width={1000}
             height={2000}
             alt={content?.bottomImage?.alt ?? ""}
-            className="col-start-5 col-end-9 p-10"
+            className="col-start-4 col-end-10 md:col-start-5 md:col-end-9 md:p-10"
           />
         </div>
       )}
