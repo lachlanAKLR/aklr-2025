@@ -52,7 +52,7 @@ export default function ProjectTile({
           width={1000}
           height={2000}
           alt={project?.mainImage?.alt ?? ""}
-          className=""
+          className={`${filtered ? "object-cover md:aspect-[2/3]" : ""}`}
         />
       </Link>
       <div className="pt-3 pb-2">

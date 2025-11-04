@@ -9,11 +9,11 @@ export default function Nav() {
 
   return isStudio ? null : (
     <nav>
-      <div className="font-dia-bold fixed top-2 left-2 text-base">
+      <div className="font-dia-bold fixed top-2 left-2 z-50 text-base">
         <Link href="/">AKLR</Link>
       </div>
 
-      <div className="font-dia-bold fixed top-2 right-2 text-base">
+      <div className="font-dia-bold fixed top-2 right-2 z-50 text-base">
         <Link href="/">Projects</Link>, <Link href="/overview">Index</Link>,{" "}
         <Link href="/studio">Studio</Link>
       </div>
