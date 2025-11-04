@@ -8,7 +8,7 @@ export default function Footer() {
 
   return isStudio ? null : (
     <footer className="font-dia-bold site-grid pb-2 text-sm uppercase">
-      <div className="col-start-1 col-end-5">
+      <div className="col-span-12 md:col-start-1 md:col-end-5">
         <div className="pb-4">
           AKLR Studio — a creative partnership
           <br /> based in Naarm (Melbourne)
@@ -18,7 +18,7 @@ export default function Footer() {
           <br /> COLLINGWOOD, VIC 3066
         </div>
       </div>
-      <div className="col-start-5 col-end-9">
+      <div className="col-span-12 md:col-start-5 md:col-end-9">
         <div className="pb-4">
           <a href="mailto:alex@aklr.xyz" target="_blank">
             <p>alex@aklr.xyz</p>
@@ -39,7 +39,7 @@ export default function Footer() {
           </a>
         </div>
       </div>
-      <div className="col-start-9 col-end-13 text-xs">
+      <div className="col-span-12 pt-10 text-xs md:col-start-9 md:col-end-13 md:pt-0">
         <p>©AKLR Studio, {new Date().getFullYear()}</p>
         <p>
           We acknowledge the Boon Wurrung & Wurundjeri peoples of the Kulin

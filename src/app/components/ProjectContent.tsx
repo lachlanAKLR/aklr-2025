@@ -17,7 +17,7 @@ export default function ProjectContent({
 
   return (
     <div>
-      <h2 className="relative top-[6.5px] left-20 w-fit text-base">
+      <h2 className="inherit top-[6.5px] left-20 w-fit px-2 pt-10 text-base md:relative md:px-0 md:pt-0">
         <span className="font-herbik-reg">
           {project?.client}
           {project?.title ? "," : " "}
@@ -26,15 +26,31 @@ export default function ProjectContent({
           <span className="font-herbik-italic"> {project.title}</span>
         ) : null}
       </h2>
+      {project?.mainImage ? (
+        <div className="site-grid block pt-4 md:hidden">
+          <FadeInImage
+            src={builder
+              .image(project?.mainImage?.asset as SanityImageSource)
+              .width(3000)
+              .fit("max")
+              .auto("format")
+              .url()}
+            width={1000}
+            height={2000}
+            alt={project?.mainImage?.alt ?? ""}
+            className={`${project?.mainImage?.isFourColumn ? "col-span-12 md:col-span-4" : "col-span-12 md:col-span-6"} block md:hidden`}
+          />
+        </div>
+      ) : null}
       {project?.info ? (
-        <div className="site-grid pt-6 pb-32">
-          <div className="col-span-8">
+        <div className="site-grid pt-6 pb-20 md:pb-32">
+          <div className="col-span-12 md:col-span-8">
             <PortableText
               value={project.info}
               components={portableTextComponents}
             />
           </div>
-          <div className="col-span-8 row-start-2 flex w-full gap-2">
+          <div className="col-span-12 row-start-2 flex w-full flex-wrap gap-2 md:col-span-8">
             {project?.projectTags?.map((tag, index) => (
               <p
                 className="font-dia-bold text-2xs bg-grey-1 h-6 w-fit shrink-0 rounded-4xl px-3.5 py-[6.5px] uppercase"
@@ -58,7 +74,7 @@ export default function ProjectContent({
             width={1000}
             height={2000}
             alt={project?.mainImage?.alt ?? ""}
-            className={`${project?.mainImage?.isFourColumn ? "col-span-4" : "col-span-6"}`}
+            className={`${project?.mainImage?.isFourColumn ? "col-span-12 md:col-span-4" : "col-span-12 md:col-span-6"} hidden md:block`}
           />
         ) : null}
 
@@ -70,8 +86,8 @@ export default function ProjectContent({
             const colSpanClass = isLandscape
               ? "col-span-12"
               : image?.isFourColumn
-                ? "col-span-4"
-                : "col-span-6";
+                ? "col-span-12 md:col-span-4"
+                : "col-span-12 md:col-span-6";
 
             return (
               <div key={index} className={colSpanClass}>
