@@ -47,18 +47,20 @@ export default function ProjectContent({
         </div>
       ) : null}
       <div className="site-grid pb-32">
-        <FadeInImage
-          src={builder
-            .image(project?.mainImage?.asset as SanityImageSource)
-            .width(3000)
-            .fit("max")
-            .auto("format")
-            .url()}
-          width={1000}
-          height={2000}
-          alt={project?.mainImage?.alt ?? ""}
-          className={`${project?.mainImage?.isFourColumn ? "col-span-4" : "col-span-6"}`}
-        />
+        {project?.mainImage ? (
+          <FadeInImage
+            src={builder
+              .image(project?.mainImage?.asset as SanityImageSource)
+              .width(3000)
+              .fit("max")
+              .auto("format")
+              .url()}
+            width={1000}
+            height={2000}
+            alt={project?.mainImage?.alt ?? ""}
+            className={`${project?.mainImage?.isFourColumn ? "col-span-4" : "col-span-6"}`}
+          />
+        ) : null}
 
         {project?.projectImages?.map((image, index) => {
           if (image.type === "projectImage" && image.asset?.asset) {
