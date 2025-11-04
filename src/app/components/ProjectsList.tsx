@@ -33,7 +33,7 @@ export default function ProjectsList({
               </p>
             ))}
           </div>
-          <div className="col-start-5 col-end-12 row-start-2 pt-10 text-left md:col-start-11 md:col-end-13 md:pt-0 md:text-right">
+          <div className="col-start-5 col-end-12 row-start-2 pt-10 text-left md:col-start-11 md:col-end-13 md:row-start-1 md:pt-0 md:text-right">
             <Link href={`/project/${project?.slug?.current}`}>
               Go to Project →
             </Link>

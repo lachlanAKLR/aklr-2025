@@ -24,42 +24,45 @@ export default function ProjectRow({ project }: ProjectTileProps) {
   const allLoaded = loadedCount >= totalImages;
 
   return (
-    <motion.div initial="rest" whileHover="hover">
-      <Link href={`/project/${project?.slug?.current}`}>
+    <motion.div
+      initial="rest"
+      whileHover="hover"
+      className="w-full overflow-scroll"
+    >
+      <motion.div
+        className="flex gap-2 overflow-scroll pb-2"
+        initial="hidden"
+        animate={allLoaded ? "visible" : "hidden"}
+        variants={{
+          visible: {
+            transition: { staggerChildren: 0.15 },
+          },
+        }}
+      >
         <motion.div
-          className="flex flex-wrap gap-2 pb-2"
-          initial="hidden"
-          animate={allLoaded ? "visible" : "hidden"}
-          variants={{
-            visible: {
-              transition: { staggerChildren: 0.15 },
-            },
-          }}
+          variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
         >
-          <motion.div
-            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-          >
-            <Image
-              src={builder
-                .image(project?.mainImage?.asset as SanityImageSource)
-                .width(3000)
-                .fit("max")
-                .auto("format")
-                .url()}
-              width={1000}
-              height={2000}
-              onLoad={() => setLoadedCount((c) => c + 1)}
-              alt={project?.mainImage?.alt ?? ""}
-              className="h-40 w-auto"
-            />
-          </motion.div>
-          {project?.projectImages?.map((image, index) => {
-            if (image.type === "projectImage" && image.asset?.asset) {
-              return (
-                <motion.div
-                  key={index}
-                  variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                >
+          <Image
+            src={builder
+              .image(project?.mainImage?.asset as SanityImageSource)
+              .width(3000)
+              .fit("max")
+              .auto("format")
+              .url()}
+            width={1000}
+            height={2000}
+            onLoad={() => setLoadedCount((c) => c + 1)}
+            alt={project?.mainImage?.alt ?? ""}
+          />
+        </motion.div>
+        {project?.projectImages?.map((image, index) => {
+          if (image.type === "projectImage" && image.asset?.asset) {
+            return (
+              <motion.div
+                key={index}
+                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+              >
+                <Link href={`/project/${project?.slug?.current}`}>
                   <Image
                     src={builder
                       .image(image.asset.asset as SanityImageSource)
@@ -73,72 +76,72 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                     alt={image.asset.altText ?? ""}
                     className="h-40 w-auto"
                   />
-                </motion.div>
-              );
-            }
+                </Link>
+              </motion.div>
+            );
+          }
 
-            if (image.type === "video" && image.posterImage?.asset) {
-              return (
-                <motion.div
-                  key={index}
-                  variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+          if (image.type === "video" && image.posterImage?.asset) {
+            return (
+              <motion.div
+                key={index}
+                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+              >
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster={image.posterImage.asset.url ?? ""}
+                  className="h-40 w-auto"
+                  onLoadedData={() => setLoadedCount((c) => c + 1)}
                 >
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    poster={image.posterImage.asset.url ?? ""}
-                    className="h-40 w-auto"
-                    onLoadedData={() => setLoadedCount((c) => c + 1)}
-                  >
-                    <source
-                      src={image.videoFile?.asset?.url ?? ""}
-                      type="video/mp4"
-                    />
-                  </video>
-                </motion.div>
-              );
-            }
+                  <source
+                    src={image.videoFile?.asset?.url ?? ""}
+                    type="video/mp4"
+                  />
+                </video>
+              </motion.div>
+            );
+          }
 
-            return null;
-          })}
-        </motion.div>
-        <motion.div
-          className="flex gap-2 pt-2 pb-10"
-          variants={{
-            hover: {
-              transition: {
-                staggerChildren: 0.1,
-              },
+          return null;
+        })}
+      </motion.div>
+      <motion.div
+        className="flex gap-2 pt-2 pb-10"
+        variants={{
+          hover: {
+            transition: {
+              staggerChildren: 0.1,
             },
-          }}
-        >
-          <h2 className="pr-5 text-base">
-            <span className="font-herbik-reg">
-              {project.client}
-              {project.title ? "," : " "}
-            </span>
-            {project.title ? (
-              <span className="font-herbik-italic"> {project.title}</span>
-            ) : null}
-          </h2>
+          },
+        }}
+      >
+        <h2 className="pr-5 text-base">
+          <span className="font-herbik-reg">
+            {project.client}
+            {project.title ? "," : " "}
+          </span>
+          {project.title ? (
+            <span className="font-herbik-italic"> {project.title}</span>
+          ) : null}
+        </h2>
 
-          {project?.projectTags?.map((tag, index) => (
-            <motion.p
-              className="font-dia-bold text-2xs relative top-1 h-6 w-fit shrink-0 rounded-4xl bg-gray-100 px-2.5 py-[6.5px] text-center uppercase"
-              key={index}
-              variants={{
-                rest: { opacity: 0 },
-                hover: { opacity: 1 },
-              }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-            >
-              {tag.title}
-            </motion.p>
-          ))}
-        </motion.div>
-      </Link>
+        {project?.projectTags?.map((tag, index) => (
+          <motion.p
+            className="font-dia-bold text-2xs bg-grey-1 relative top-1 h-6 w-fit shrink-0 rounded-4xl px-2.5 py-[6.5px] text-center uppercase"
+            key={index}
+            variants={{
+              rest: { opacity: 0 },
+              hover: { opacity: 1 },
+            }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            {tag.title}
+          </motion.p>
+        ))}
+      </motion.div>
     </motion.div>
   );
 }
