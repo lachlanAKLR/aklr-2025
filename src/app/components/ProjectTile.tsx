@@ -90,7 +90,7 @@ export default function ProjectTile({
                   hover: { opacity: 1 },
                 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className={`font-dia-bold text-2xs h-6 w-fit shrink-0 cursor-pointer rounded-4xl px-2.5 py-[6.5px] text-center uppercase transition-colors ${
+                className={`button-style ${
                   isSelected
                     ? "bg-grey-2"
                     : "hover:bg-grey-2 bg-grey-1 text-black"
@@ -102,7 +102,7 @@ export default function ProjectTile({
               <button
                 key={index}
                 onClick={() => onFilterChange?.(tag.slug?.current || "")}
-                className={`font-dia-bold text-2xs h-6 w-fit shrink-0 cursor-pointer rounded-4xl px-2.5 py-[6.5px] text-center uppercase transition-colors ${
+                className={`button-style ${
                   isSelected
                     ? "bg-grey-2"
                     : "hover:bg-grey-2 bg-grey-1 text-black"

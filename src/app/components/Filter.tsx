@@ -25,7 +25,7 @@ export default function Filter({
         <button
           onClick={() => onFilterChange("")}
           disabled={!selectedTags || selectedTags.length === 0}
-          className={`font-dia-bold text-2xs h-6 rounded-4xl px-2.5 py-[6.5px] uppercase transition-colors ${
+          className={`button-style ${
             !selectedTags || selectedTags.length === 0
               ? "bg-grey-2 text-grey-b cursor-default"
               : "bg-grey-1 hover:bg-grey-2 cursor-pointer text-black"
@@ -45,7 +45,7 @@ export default function Filter({
               <button
                 key={index}
                 onClick={() => onFilterChange(slug)}
-                className={`font-dia-bold text-2xs h-6 cursor-pointer rounded-4xl px-2.5 py-[6.5px] uppercase transition-colors ${
+                className={`button-style ${
                   isSelected
                     ? "bg-grey-2"
                     : "hover:bg-grey-2 bg-grey-1 text-black"

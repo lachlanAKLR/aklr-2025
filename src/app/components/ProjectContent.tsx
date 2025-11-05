@@ -97,12 +97,12 @@ export default function ProjectContent({
           </div>
           <div className="col-span-12 row-start-2 flex w-full flex-wrap gap-2 md:col-span-8">
             {project?.projectTags?.map((tag, index) => (
-              <p
-                className="font-dia-bold text-2xs bg-grey-1 h-6 w-fit shrink-0 rounded-4xl px-3.5 py-[6.5px] uppercase"
+              <button
+                className="button-style no-cursor bg-grey-1 w-fit shrink-0 pt-2"
                 key={index}
               >
                 {tag.title}
-              </p>
+              </button>
             ))}
           </div>
         </div>
@@ -119,8 +119,13 @@ export default function ProjectContent({
                 ? "col-span-12 md:col-span-4"
                 : "col-span-12 md:col-span-6";
 
+            const isFirstImage = index === 0;
+
             return (
-              <div key={index} className={colSpanClass}>
+              <div
+                key={index}
+                className={`${colSpanClass} ${isFirstImage ? "hidden md:block" : ""}`}
+              >
                 <FadeInImage
                   src={builder
                     .image(image.asset.asset as SanityImageSource)
@@ -148,8 +153,13 @@ export default function ProjectContent({
                 ? "col-span-12 md:col-span-4"
                 : "col-span-12 md:col-span-6";
 
+            const isFirstImage = index === 0;
+
             return (
-              <div key={index} className={colSpanClass}>
+              <div
+                key={index}
+                className={`${colSpanClass} ${isFirstImage ? "hidden md:block" : ""}`}
+              >
                 <video
                   autoPlay
                   muted

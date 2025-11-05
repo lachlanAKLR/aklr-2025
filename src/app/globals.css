@@ -97,6 +97,28 @@ a[href^="address"] {
     padding-right: 8px;
   }
 
+  .button-style {
+    font-family: var(--font-dia-bold, sans-serif);
+    font-size: var(--font-size-2xs, 10px);
+    line-height: var(--line-height-2xs, 12px);
+    letter-spacing: var(--letter-spacing-2xs, 0.5px);
+
+    height: 1.25rem; /* equivalent to 20px (Tailwind h-5) */
+    cursor: pointer;
+    border-radius: 2rem; /* approx Tailwind rounded-4xl */
+    padding-left: 0.5rem; /* 8px */
+    padding-right: 0.5rem; /* 8px */
+    padding-top: 1px;
+    text-transform: uppercase;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .no-cursor {
+    cursor: default;
+  }
+
   @media (min-width: 768px) {
     .md\:text-2xs {
       font-size: var(--font-size-2xs);

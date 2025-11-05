@@ -7,7 +7,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useIsDesktop from "../utils/useIsDesktop";
 
 const builder = imageUrlBuilder({ projectId, dataset });
@@ -59,7 +59,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                 priority
                 onLoad={() => setLoadedCount((c) => c + 1)}
                 alt={project?.mainImage?.alt ?? ""}
-                className="h-40 w-auto"
+                className="h-52 w-auto md:h-40"
               />
             </Link>
           </motion.div>
@@ -83,7 +83,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                       priority
                       onLoad={() => setLoadedCount((c) => c + 1)}
                       alt={image.asset.altText ?? ""}
-                      className="h-40 w-auto"
+                      className="h-52 w-auto md:h-40"
                     />
                   </Link>
                 </motion.div>
@@ -102,7 +102,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                     loop
                     playsInline
                     poster={image.posterImage.asset.url ?? ""}
-                    className="h-40 w-auto"
+                    className="h-52 w-auto md:h-40"
                     onLoadedData={() => setLoadedCount((c) => c + 1)}
                   >
                     <source
@@ -128,7 +128,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
           },
         }}
       >
-        <h2 className="pr-5 text-base">
+        <h2 className="pr-5 pb-1 text-base md:pb-0">
           <Link href={`/project/${project?.slug?.current}`}>
             <span className="font-herbik-reg">
               {project.client}
@@ -142,8 +142,8 @@ export default function ProjectRow({ project }: ProjectTileProps) {
 
         {isDesktop ? (
           project?.projectTags?.map((tag, index) => (
-            <motion.p
-              className="font-dia-bold text-2xs bg-grey-1 relative top-1 h-6 w-fit shrink-0 rounded-4xl px-2.5 py-[6.5px] text-center uppercase"
+            <motion.button
+              className="button-style bg-grey-1 no-cursor mt-[5px]"
               key={index}
               variants={{
                 rest: { opacity: 0 },
@@ -152,17 +152,17 @@ export default function ProjectRow({ project }: ProjectTileProps) {
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               {tag.title}
-            </motion.p>
+            </motion.button>
           ))
         ) : (
-          <div className="relative -left-1 flex flex-wrap gap-2">
+          <div className="relative -left-0.5 flex flex-wrap gap-x-2 gap-y-1">
             {project?.projectTags?.map((tag, index) => (
-              <p
+              <button
                 key={index}
-                className="font-dia-bold text-2xs bg-grey-1 relative top-1 h-6 w-fit shrink-0 rounded-4xl px-2.5 py-[6.5px] text-center uppercase"
+                className="button-style no-cursor bg-grey-1 mt-1"
               >
                 {tag.title}
-              </p>
+              </button>
             ))}
           </div>
         )}
