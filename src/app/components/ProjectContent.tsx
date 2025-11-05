@@ -15,7 +15,7 @@ export default function ProjectContent({
 }) {
   return (
     <div>
-      <h2 className="inherit top-[6.5px] left-20 w-fit px-2 pt-16 text-sm md:relative md:px-0 md:pt-0 md:text-base">
+      <h2 className="inherit top-[6.5px] left-20 w-fit px-2 pt-16 text-base md:relative md:px-0 md:pt-0">
         <span className="font-herbik-reg">
           {project?.client}
           {project?.title ? "," : " "}
