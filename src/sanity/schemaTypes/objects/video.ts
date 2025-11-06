@@ -25,7 +25,15 @@ export default defineType({
       initialValue: false,
       options: { layout: "switch" },
     }),
+    defineField({
+      name: "isInset",
+      title: "Inset Video",
+      type: "boolean",
+      initialValue: false,
+      options: { layout: "switch" },
+    }),
   ],
+
   preview: {
     select: {
       media: "posterImage",

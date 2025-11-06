@@ -154,25 +154,30 @@ export default function ProjectContent({
                 : "col-span-12 md:col-span-6";
 
             const isFirstImage = index === 0;
+            const insetVideo = image.isInset;
 
             return (
               <div
                 key={index}
-                className={`${colSpanClass} ${isFirstImage ? "hidden md:block" : ""}`}
+                className={`${colSpanClass} ${isFirstImage ? "hidden md:block" : ""} ${insetVideo ? "site-grid" : "block"} bg-black`}
               >
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  poster={image.posterImage.asset.url ?? ""}
-                  className="h-auto w-full object-cover"
+                <div
+                  className={`${insetVideo ? "col-start-2 col-end-12 my-40" : ""} h-auto w-full overflow-hidden rounded`}
                 >
-                  <source
-                    src={image.videoFile?.asset?.url ?? ""}
-                    type="video/mp4"
-                  />
-                </video>
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    poster={image.posterImage.asset.url ?? ""}
+                    className="h-full w-full object-cover"
+                  >
+                    <source
+                      src={image.videoFile?.asset?.url ?? ""}
+                      type="video/mp4"
+                    />
+                  </video>
+                </div>
               </div>
             );
           }

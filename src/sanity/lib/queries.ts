@@ -113,6 +113,7 @@ export const PROJECT_QUERY = defineQuery(`
       _type == "video" => {
         "type": _type,
         isFourColumn,
+        isInset,
         videoFile {
           asset->{
             _id,

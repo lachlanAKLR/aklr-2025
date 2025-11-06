@@ -1416,6 +1416,13 @@
             "type": "boolean"
           },
           "optional": true
+        },
+        "isInset": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
         }
       }
     }
