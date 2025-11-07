@@ -45,14 +45,14 @@ export default function ProjectTile({
         <FadeInImage
           src={builder
             .image(project?.mainImage?.asset as SanityImageSource)
-            .width(2000)
+            .width(10000)
             .fit("max")
             .auto("format")
             .url()}
           width={1000}
           height={2000}
           alt={project?.mainImage?.alt ?? ""}
-          className={`${filtered ? "object-cover md:aspect-[2/3]" : ""}`}
+          className={`${filtered ? "md:aspect-[2/3]" : ""} h-auto w-full object-cover`}
         />
       </Link>
       <div className="pt-3 pb-2">

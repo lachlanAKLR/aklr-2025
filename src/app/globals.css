@@ -25,6 +25,10 @@ a[href^="address"] {
   display: none;
 }
 
+::selection {
+  background-color: #d5f266; /* your highlight colour */
+}
+
 @theme {
   --font-herbik-reg: "Herbik Regular", sans-serif;
   --font-herbik-italic: "Herbik Italic", sans-serif;
@@ -117,6 +121,25 @@ a[href^="address"] {
 
   .no-cursor {
     cursor: default;
+  }
+
+  .custom-underline {
+    position: relative;
+    display: inline-block;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .custom-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2;
+    width: 100%;
+    height: 0.5px;
+    border-bottom: 1px dashed black;
+    pointer-events: none;
+    transform: translateY(-2px);
   }
 
   @media (min-width: 768px) {

@@ -65,7 +65,7 @@ export default function StudioContent({
                 width={1000}
                 height={2000}
                 alt={image?.asset?.altText ?? ""}
-                className=""
+                className="h-full w-full object-cover"
               />
             </div>
           ))}

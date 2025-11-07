@@ -48,6 +48,7 @@ export default function ProjectContent({
                   width={width || 1000}
                   height={height || 1500}
                   alt={image.asset.altText ?? ""}
+                  className="h-full w-full object-cover"
                 />
               </div>
             );
@@ -113,10 +114,10 @@ export default function ProjectContent({
             const width = image.asset.asset.metadata?.dimensions?.width ?? 0;
             const height = image.asset.asset.metadata?.dimensions?.height ?? 0;
             const isLandscape = width > height;
-            const colSpanClass = isLandscape
-              ? "col-span-12"
-              : image?.isFourColumn
-                ? "col-span-12 md:col-span-4"
+            const colSpanClass = image?.isFourColumn
+              ? "col-span-12 md:col-span-4"
+              : isLandscape
+                ? "col-span-12"
                 : "col-span-12 md:col-span-6";
 
             const isFirstImage = index === 0;
@@ -136,6 +137,7 @@ export default function ProjectContent({
                   width={width || 1000}
                   height={height || 1500}
                   alt={image.asset.altText ?? ""}
+                  className="h-full w-full object-cover"
                 />
               </div>
             );
