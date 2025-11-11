@@ -20,10 +20,9 @@ export default function ProjectRow({ project }: ProjectTileProps) {
   const [loadedCount, setLoadedCount] = useState(0);
 
   const totalImages =
-    1 +
-    (project?.projectImages?.filter(
+    project?.projectImages?.filter(
       (img) => img.type === "projectImage" && img.asset?.asset,
-    ).length ?? 0);
+    ).length ?? 0;
 
   const allLoaded = loadedCount >= totalImages;
 
