@@ -164,7 +164,7 @@ export default function ProjectContent({
                 className={`${colSpanClass} ${isFirstImage ? "hidden md:block" : ""} ${insetVideo ? "site-grid" : "block"} bg-black`}
               >
                 <div
-                  className={`${insetVideo ? "col-start-2 col-end-12 my-40" : ""} h-auto w-full overflow-hidden rounded`}
+                  className={`${insetVideo ? "col-start-2 col-end-12 my-40 rounded" : ""} h-auto w-full overflow-hidden`}
                 >
                   <video
                     autoPlay

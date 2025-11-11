@@ -29,6 +29,12 @@ export default function ProjectRow({ project }: ProjectTileProps) {
 
   const isDesktop = useIsDesktop();
 
+  const isComingSoon = project?.projectTags?.some(
+    (tag) => tag?.slug?.current === "coming-soon",
+  );
+
+  if (isComingSoon) return null;
+
   return (
     <motion.div initial="rest" whileHover="hover">
       <div className="relative w-full overflow-x-auto overflow-y-hidden">
@@ -42,27 +48,6 @@ export default function ProjectRow({ project }: ProjectTileProps) {
             },
           }}
         >
-          <motion.div
-            className="flex-shrink-0"
-            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-          >
-            <Link href={`/project/${project?.slug?.current}`}>
-              <Image
-                src={builder
-                  .image(project?.mainImage?.asset as SanityImageSource)
-                  .width(isDesktop ? 2000 : 800)
-                  .fit("max")
-                  .auto("format")
-                  .url()}
-                width={1000}
-                height={2000}
-                priority
-                onLoad={() => setLoadedCount((c) => c + 1)}
-                alt={project?.mainImage?.alt ?? ""}
-                className="h-52 w-auto md:h-40"
-              />
-            </Link>
-          </motion.div>
           {project?.projectImages?.map((image, index) => {
             if (image.type === "projectImage" && image.asset?.asset) {
               return (
@@ -91,10 +76,12 @@ export default function ProjectRow({ project }: ProjectTileProps) {
             }
 
             if (image.type === "video" && image.posterImage?.asset) {
+              console.log(image.isInset);
               return (
                 <motion.div
                   key={index}
                   variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                  className="bg-black"
                 >
                   <video
                     autoPlay
@@ -102,7 +89,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
                     loop
                     playsInline
                     poster={image.posterImage.asset.url ?? ""}
-                    className="h-52 w-auto md:h-40"
+                    className={`${image.isInset ? "p-5" : ""} h-52 w-auto md:h-40`}
                     onLoadedData={() => setLoadedCount((c) => c + 1)}
                   >
                     <source
@@ -119,7 +106,7 @@ export default function ProjectRow({ project }: ProjectTileProps) {
         </motion.div>
       </div>
       <motion.div
-        className="block gap-2 pt-2 pb-20 md:flex md:pb-10"
+        className="block gap-2 pb-20 md:flex md:pb-10"
         variants={{
           hover: {
             transition: {

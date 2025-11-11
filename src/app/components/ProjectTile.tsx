@@ -25,6 +25,10 @@ export default function ProjectTile({
   onFilterChange,
 }: ProjectTileProps) {
   const isDesktop = useIsDesktop();
+  const isComingSoon = project?.projectTags?.some(
+    (tag) => tag?.slug?.current === "coming-soon",
+  );
+
   return (
     <motion.div
       className={`self-end pb-5 md:pb-20 ${
@@ -37,11 +41,14 @@ export default function ProjectTile({
               : project.size == "large"
                 ? "col-span-12 md:col-span-5"
                 : null
-      }`}
+      } `}
       initial="rest"
       whileHover="hover"
     >
-      <Link href={`/project/${project?.slug?.current}`}>
+      <Link
+        href={`/project/${project?.slug?.current}`}
+        className={`${isComingSoon ? "pointer-events-none" : "pointer-events-auto"}`}
+      >
         <FadeInImage
           src={builder
             .image(project?.mainImage?.asset as SanityImageSource)
@@ -56,7 +63,10 @@ export default function ProjectTile({
         />
       </Link>
       <div className="pt-3 pb-2">
-        <Link href={`/project/${project?.slug?.current}`}>
+        <Link
+          href={`/project/${project?.slug?.current}`}
+          className={`${isComingSoon ? "pointer-events-none" : "pointer-events-auto"}`}
+        >
           <h2 className="text-base">
             <span className="font-herbik-reg">
               {project.client}

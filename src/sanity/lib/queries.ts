@@ -46,6 +46,7 @@ export const PROJECTS_QUERY = defineQuery(`
       },
       _type == "video" => {
         "type": _type,
+        isInset,
         videoFile {
           asset->{
             _id,
