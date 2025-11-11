@@ -31,7 +31,7 @@ export default function ProjectTile({
 
   return (
     <motion.div
-      className={`self-end pb-5 md:pb-20 ${
+      className={`self-end pb-5 md:pb-10 ${
         filtered
           ? "col-span-12 md:col-span-4"
           : project.size == "small"

@@ -43,7 +43,7 @@ export default function ProjectsGrid({
         onFilterChange={handleTagClick}
         totalProjects={totalProjects}
       />
-      <div className="site-grid py-20">
+      <div className="site-grid pt-10 pb-20">
         {filteredProjects.map((project, index) => (
           <ProjectTile
             key={index}
