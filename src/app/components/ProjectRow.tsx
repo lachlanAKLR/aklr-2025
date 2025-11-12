@@ -43,7 +43,9 @@ export default function ProjectRow({ project }: ProjectTileProps) {
           animate={allLoaded ? "visible" : "hidden"}
           variants={{
             visible: {
-              transition: { staggerChildren: 0.15 },
+              transition: {
+                staggerChildren: 0.15,
+              },
             },
           }}
         >
@@ -52,7 +54,11 @@ export default function ProjectRow({ project }: ProjectTileProps) {
               return (
                 <motion.div
                   key={index}
-                  variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
+                  initial={{ opacity: 0 }}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { opacity: 1 },
+                  }}
                 >
                   <Link href={`/project/${project?.slug?.current}`}>
                     <Image

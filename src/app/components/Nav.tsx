@@ -9,7 +9,7 @@ export default function Nav() {
 
   const isHome = pathname === "/" || pathname.includes("/project");
 
-  const isIndex = pathname === "/overview";
+  const isIndex = pathname === "/index";
   const isStudioPage = pathname === "/studio";
 
   return isStudio ? null : (
@@ -30,7 +30,7 @@ export default function Nav() {
           Projects
         </Link>
 
-        <Link className="group ml-2" href="/overview">
+        <Link className="group ml-2" href="/index">
           <span className="relative bottom-0.25">[</span>
           <span
             className={`${isIndex ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase opacity-0 transition-all duration-150 group-hover:opacity-100`}
