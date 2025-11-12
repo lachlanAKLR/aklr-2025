@@ -50,8 +50,8 @@ a[href^="address"] {
   --font-size-sm: 16px;
   --line-height-sm: 21px;
 
-  --font-size-base: 20px;
-  --line-height-base: 28px;
+  --font-size-base: 18px;
+  --line-height-base: 24px;
 
   --color-grey-1: #e2e2e2;
   --color-grey-2: #bbbbbb;
@@ -106,7 +106,6 @@ a[href^="address"] {
     font-size: var(--font-size-2xs, 10px);
     line-height: var(--line-height-2xs, 12px);
     letter-spacing: var(--letter-spacing-2xs, 0.5px);
-
     height: 1.25rem; /* equivalent to 20px (Tailwind h-5) */
     cursor: pointer;
     border-radius: 2rem; /* approx Tailwind rounded-4xl */
@@ -161,7 +160,7 @@ a[href^="address"] {
       transparent 2px,
       transparent 4px
     );
-    transform: translateY(-3px);
+    transform: translateY(-1px);
     background-size: 5px 1px;
     background-repeat: repeat-x;
     transition: opacity 0.2s ease;

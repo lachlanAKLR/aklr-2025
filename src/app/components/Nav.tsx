@@ -26,7 +26,7 @@ export default function Nav() {
           >
             *
           </span>
-          <span className="relative bottom-0.25">] </span>
+          <span className="relative bottom-0.25 pr-0.5">]</span>
           Projects
         </Link>
 
@@ -37,7 +37,7 @@ export default function Nav() {
           >
             *
           </span>
-          <span className="relative bottom-0.25">] </span>
+          <span className="relative bottom-0.25 pr-0.5">]</span>
           Index
         </Link>
 
@@ -48,7 +48,7 @@ export default function Nav() {
           >
             *
           </span>
-          <span className="relative bottom-0.25">] </span>
+          <span className="relative bottom-0.25 pr-0.5">]</span>
           Studio
         </Link>
       </div>

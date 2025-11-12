@@ -62,7 +62,7 @@ export default function ProjectTile({
           className={`${filtered ? "md:aspect-[2/3]" : ""} h-auto w-full object-cover`}
         />
       </Link>
-      <div className="pt-3 pb-2">
+      <div className="pt-1 pb-2">
         <Link
           href={`/project/${project?.slug?.current}`}
           className={`${isComingSoon ? "pointer-events-none" : "pointer-events-auto"}`}

@@ -28,21 +28,21 @@ export default function ProjectsList({
 
   return (
     <div className="p-2 pb-40 md:pb-96">
-      <div className="font-dia-bold text-xs uppercase md:text-sm">
+      <div className="font-dia-bold border-b-1 pb-2 text-xs uppercase md:border-0">
         <h2>More Projects</h2>
       </div>
 
       {visibleProjects.map((project, index) => {
-        return (
+        return isDesktop ? (
           <div
             key={project._id ?? index}
-            className="font-herbik-reg relative w-full text-sm md:text-base"
+            className="font-herbik-reg relative w-full pb-0.5 text-sm md:text-base"
             onMouseEnter={() => setHoveredSlug(project?.slug?.current ?? null)}
             onMouseLeave={() => setHoveredSlug(null)}
           >
             <Link href={`/project/${project?.slug?.current}`} className="w-fit">
               <h2 className="group flex items-center transition-all duration-300 ease-out">
-                <span className="font-herbik-regular w-0 overflow-hidden pr-0 text-sm opacity-0 transition-all duration-300 ease-out group-hover:w-5 group-hover:opacity-100">
+                <span className="font-herbik-reg w-0 overflow-hidden pr-0 text-sm opacity-0 transition-all duration-300 ease-out group-hover:w-5 group-hover:opacity-100">
                   →
                 </span>
                 <span className="pr-1">{project?.client},</span>
@@ -54,6 +54,13 @@ export default function ProjectsList({
               </h2>
             </Link>
           </div>
+        ) : (
+          <Link href={`/project/${project?.slug?.current}`}>
+            <h2 className="font-herbik-reg border-b-1 py-2 text-sm">
+              {project?.client},{" "}
+              <span className="font-herbik-italic">{project?.excerpt}</span>
+            </h2>
+          </Link>
         );
       })}
 

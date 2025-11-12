@@ -17,7 +17,7 @@ export default function StudioContent({
     <>
       <div className="site-grid pt-[52px]">
         {content?.about ? (
-          <div className="col-span-12 md:col-span-8">
+          <div className="col-span-12 md:col-span-6">
             <PortableText
               value={content?.about}
               components={portableTextComponents}
@@ -32,14 +32,12 @@ export default function StudioContent({
               value={content?.address}
               components={portableTextComponents}
             />
-          </div>
-        ) : null}
-        {content?.contact ? (
-          <div className="col-span-12 md:col-span-2">
-            <PortableText
-              value={content?.contact}
-              components={portableTextComponents}
-            />
+            {content?.contact ? (
+              <PortableText
+                value={content?.contact}
+                components={portableTextComponents}
+              />
+            ) : null}
           </div>
         ) : null}
         {content?.social ? (
@@ -75,8 +73,8 @@ export default function StudioContent({
         <div className="site-grid">
           <div className="site-grid col-span-12 !pr-0 !pl-0 md:col-span-8">
             {content.titledLists.map((list, index) => (
-              <div key={index} className="col-span-6 pt-16">
-                <div className="font-dia-bold text-xs uppercase md:text-sm">
+              <div key={index} className="col-span-6 pt-12">
+                <div className="font-dia-bold pb-2 text-xs uppercase">
                   {list.title}
                 </div>
                 {Array.isArray(list.items) &&
@@ -95,10 +93,8 @@ export default function StudioContent({
       )}
 
       {content?.media && (
-        <div className="px-2 pt-16">
-          <div className="font-dia-bold text-xs uppercase md:text-sm">
-            Press
-          </div>
+        <div className="px-2 pt-12">
+          <div className="font-dia-bold pb-2 text-xs uppercase">Press</div>
           <div className="flex flex-col gap-1">
             {content?.media.map((item, index) => (
               //@ts-expect-error: href error
@@ -113,7 +109,7 @@ export default function StudioContent({
       )}
 
       {content?.bottomImage && (
-        <div className="site-grid py-32 md:py-96">
+        <div className="site-grid py-32 md:py-80">
           <FadeInImage
             src={builder
               .image(content?.bottomImage?.asset as SanityImageSource)
@@ -124,7 +120,7 @@ export default function StudioContent({
             width={1000}
             height={2000}
             alt={content?.bottomImage?.alt ?? ""}
-            className="col-start-4 col-end-10 md:col-start-5 md:col-end-9 md:p-10"
+            className="col-start-4 col-end-10 md:col-start-5 md:col-end-9 md:p-20"
           />
         </div>
       )}

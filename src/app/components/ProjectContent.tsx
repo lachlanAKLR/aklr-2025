@@ -90,7 +90,7 @@ export default function ProjectContent({
       </div>
       {project?.info ? (
         <div className="site-grid pt-2 pb-16 md:pt-6 md:pb-32">
-          <div className="col-span-12 md:col-span-8">
+          <div className="col-span-12 md:col-span-6">
             <PortableText
               value={project.info}
               components={portableTextComponents}
