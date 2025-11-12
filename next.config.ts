@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/index",
+        destination: "/overview",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
