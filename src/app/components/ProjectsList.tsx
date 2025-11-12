@@ -28,7 +28,7 @@ export default function ProjectsList({
 
   return (
     <div className="p-2 pb-40 md:pb-96">
-      <div className="font-dia-bold border-b-1 pb-2 text-xs uppercase md:border-0">
+      <div className="font-dia-bold w-full border-b-1 pb-2 text-xs uppercase md:w-1/2">
         <h2>More Projects</h2>
       </div>
 
@@ -36,7 +36,7 @@ export default function ProjectsList({
         return isDesktop ? (
           <div
             key={project._id ?? index}
-            className="font-herbik-reg relative w-full pb-0.5 text-sm md:text-base"
+            className="font-herbik-reg relative w-1/2 border-b-1 py-2 text-sm md:text-base"
             onMouseEnter={() => setHoveredSlug(project?.slug?.current ?? null)}
             onMouseLeave={() => setHoveredSlug(null)}
           >
@@ -68,7 +68,7 @@ export default function ProjectsList({
         if (!isDesktop) return null;
 
         return (
-          <div key={project._id ?? `image-${index}`}>
+          <div key={project._id ?? `image-${index}`} className="relative">
             <Image
               src={builder
                 .image(project?.mainImage?.asset as SanityImageSource)
@@ -79,7 +79,7 @@ export default function ProjectsList({
               width={1000}
               height={2000}
               alt={project?.mainImage?.alt ?? ""}
-              className={`fixed right-2 bottom-2 w-80 transition-opacity duration-300 ${
+              className={`absolute right-2 bottom-2 aspect-[4/5] w-80 object-cover transition-opacity duration-300 ${
                 hoveredSlug === project?.slug?.current
                   ? "opacity-100"
                   : "opacity-0"

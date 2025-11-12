@@ -62,7 +62,7 @@ export default function ProjectTile({
           className={`${filtered ? "md:aspect-[2/3]" : ""} h-auto w-full object-cover`}
         />
       </Link>
-      <div className="pt-1 pb-2">
+      <div className="pt-3 pb-2">
         <Link
           href={`/project/${project?.slug?.current}`}
           className={`${isComingSoon ? "pointer-events-none" : "pointer-events-auto"}`}
@@ -78,7 +78,7 @@ export default function ProjectTile({
           </h2>
         </Link>
       </div>
-      <div className="relative -left-1 h-24 w-full md:h-32">
+      <div className="relative -left-1 h-24 w-full md:h-24">
         <motion.div
           className="flex flex-wrap gap-2"
           variants={{
