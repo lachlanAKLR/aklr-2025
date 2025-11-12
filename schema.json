@@ -58,20 +58,6 @@
             "type": "string"
           },
           "optional": true
-        },
-        "publisher": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": true
-        },
-        "date": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          },
-          "optional": true
         }
       }
     }
@@ -363,6 +349,13 @@
               }
             ]
           }
+        },
+        "optional": true
+      },
+      "excerpt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
         },
         "optional": true
       },

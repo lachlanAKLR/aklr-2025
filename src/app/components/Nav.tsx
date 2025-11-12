@@ -7,7 +7,8 @@ export default function Nav() {
   const pathname = usePathname();
   const isStudio = pathname.includes("/admin");
 
-  const isHome = pathname === "/";
+  const isHome = pathname === "/" || pathname.includes("/project");
+
   const isIndex = pathname === "/overview";
   const isStudioPage = pathname === "/studio";
 
@@ -18,15 +19,36 @@ export default function Nav() {
       </div>
 
       <div className="font-dia-bold fixed top-2 right-2 z-50 text-sm md:text-base">
-        <Link className={`${isHome ? "underline" : ""}`} href="/">
+        <Link className="group" href="/">
+          <span className="relative bottom-0.25">[</span>
+          <span
+            className={`${isHome ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase opacity-0 transition-all duration-150 group-hover:opacity-100`}
+          >
+            *
+          </span>
+          <span className="relative bottom-0.25">] </span>
           Projects
         </Link>
-        ,{" "}
-        <Link className={`${isIndex ? "underline" : ""}`} href="/overview">
+
+        <Link className="group ml-2" href="/overview">
+          <span className="relative bottom-0.25">[</span>
+          <span
+            className={`${isIndex ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase opacity-0 transition-all duration-150 group-hover:opacity-100`}
+          >
+            *
+          </span>
+          <span className="relative bottom-0.25">] </span>
           Index
         </Link>
-        ,{" "}
-        <Link className={`${isStudioPage ? "underline" : ""}`} href="/studio">
+
+        <Link className="group ml-2" href="/studio">
+          <span className="relative bottom-0.25">[</span>
+          <span
+            className={`${isStudioPage ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase opacity-0 transition-all duration-150 group-hover:opacity-100`}
+          >
+            *
+          </span>
+          <span className="relative bottom-0.25">] </span>
           Studio
         </Link>
       </div>

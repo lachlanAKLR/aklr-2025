@@ -12,6 +12,10 @@ export const studioType = defineType({
       type: "blockContent",
     }),
     defineField({
+      name: "excerpt",
+      type: "string",
+    }),
+    defineField({
       name: "address",
       type: "blockContent",
     }),

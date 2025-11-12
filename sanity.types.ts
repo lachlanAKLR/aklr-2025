@@ -23,8 +23,6 @@ export type MediaItem = {
   _type: "mediaItem";
   title?: string;
   link?: string;
-  publisher?: string;
-  date?: string;
 };
 
 export type Studio = {
@@ -67,6 +65,7 @@ export type Studio = {
         _key: string;
       }
   >;
+  excerpt?: string;
   address?: Array<
     | {
         children?: Array<{
@@ -484,11 +483,12 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && defined(slug.current)] | order(orderRank) {    _id,    client,    title,    slug,    size,    mainImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    projectTags[]->{      _id,      title,      slug    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        isInset,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url          }        }      }    }  }
+// Query: *[_type == "project" && defined(slug.current)] | order(orderRank) {    _id,    client,    title,    excerpt,    slug,    size,    mainImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    },    projectTags[]->{      _id,      title,      slug    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        isInset,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url          }        }      }    }  }
 export type PROJECTS_QUERYResult = Array<{
   _id: string;
   client: string | null;
   title: string | null;
+  excerpt: null;
   slug: Slug | null;
   size: "large" | "medium" | "small" | null;
   mainImage: {
@@ -547,11 +547,12 @@ export type PROJECTS_QUERYResult = Array<{
   > | null;
 }>;
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    client,    title,    slug,    size,    mainImage {      isFourColumn,      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt,    },    info,    projectTags[]->{      _id,      title    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        isFourColumn,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        isFourColumn,        isInset,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url,            metadata {              dimensions {                width,                height              }            }          }        }      }    }  }
+// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    client,    title,    excerpt,    slug,    size,    mainImage {      isFourColumn,      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt,    },    info,    projectTags[]->{      _id,      title    },    projectImages[] {      _type == "projectImage" => {        "type": _type,        isFourColumn,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      },      _type == "video" => {        "type": _type,        isFourColumn,        isInset,        videoFile {          asset->{            _id,            url          }        },        posterImage {          asset->{            _id,            url,            metadata {              dimensions {                width,                height              }            }          }        }      }    }  }
 export type PROJECT_QUERYResult = {
   _id: string;
   client: string | null;
   title: string | null;
+  excerpt: null;
   slug: Slug | null;
   size: "large" | "medium" | "small" | null;
   mainImage: {
@@ -619,7 +620,7 @@ export type PROJECT_QUERYResult = {
   > | null;
 } | null;
 // Variable: STUDIO_QUERY
-// Query: *[_type == "studio"][0]{    _id,    about,    address,    contact,    social,    studioImages[]{      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      }    },    titledLists[]{      title,      items    },    media[] {      _type == "mediaItem" => {        _type,        title,        url,        description,        image {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          }        }      }    },    bottomImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    }  }
+// Query: *[_type == "studio"][0]{    _id,    about,    address,    contact,    social,    studioImages[]{      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      }    },    titledLists[]{      title,      items    },    media[] {      _type,      title,      link    },    bottomImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    }  }
 export type STUDIO_QUERYResult = {
   _id: string;
   about: Array<
@@ -782,9 +783,7 @@ export type STUDIO_QUERYResult = {
   media: Array<{
     _type: "mediaItem";
     title: string | null;
-    url: null;
-    description: null;
-    image: null;
+    link: string | null;
   }> | null;
   bottomImage: {
     asset: {
@@ -814,9 +813,9 @@ export type TAGS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id,\n      title,\n      slug\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        isInset,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECTS_QUERYResult;
-    '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    client,\n    title,\n    slug,\n    size,\n    mainImage {\n      isFourColumn,\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt,\n\n    },\n    info,\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        isFourColumn,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        isFourColumn,\n        isInset,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': PROJECT_QUERYResult;
-    '\n  *[_type == "studio"][0]{\n    _id,\n    about,\n    address,\n    contact,\n    social,\n\n    studioImages[]{\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      }\n    },\n\n    titledLists[]{\n      title,\n      items\n    },\n\n    media[] {\n      _type == "mediaItem" => {\n        _type,\n        title,\n        url,\n        description,\n        image {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          }\n        }\n      }\n    },\n\n    bottomImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    }\n  }\n': STUDIO_QUERYResult;
+    '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    excerpt,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id,\n      title,\n      slug\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        isInset,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECTS_QUERYResult;
+    '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    client,\n    title,\n    excerpt,\n    slug,\n    size,\n    mainImage {\n      isFourColumn,\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt,\n\n    },\n    info,\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        isFourColumn,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        isFourColumn,\n        isInset,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': PROJECT_QUERYResult;
+    '\n  *[_type == "studio"][0]{\n    _id,\n    about,\n    address,\n    contact,\n    social,\n\n    studioImages[]{\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      }\n    },\n\n    titledLists[]{\n      title,\n      items\n    },\n\n    media[] {\n      _type,\n      title,\n      link\n    },\n\n    bottomImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    }\n  }\n': STUDIO_QUERYResult;
     '\n  *[_type == "projectTag" && !(_id in path("drafts.**"))]\n  | order(title asc) {\n    _id,\n    title,\n    slug,\n    "count": count(*[_type == "project" && references(^._id)])\n  }\n': TAGS_QUERYResult;
   }
 }

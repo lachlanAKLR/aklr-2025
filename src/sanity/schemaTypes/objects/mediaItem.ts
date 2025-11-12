@@ -17,14 +17,5 @@ export default defineType({
       title: "Link",
       type: "string",
     }),
-    defineField({
-      name: "publisher",
-      title: "Publisher",
-      type: "string",
-    }),
-    defineField({
-      name: "date",
-      type: "date",
-    }),
   ],
 });

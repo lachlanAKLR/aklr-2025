@@ -5,6 +5,7 @@ export const PROJECTS_QUERY = defineQuery(`
     _id,
     client,
     title,
+    excerpt,
     slug,
     size,
     mainImage {
@@ -69,6 +70,7 @@ export const PROJECT_QUERY = defineQuery(`
     _id,
     client,
     title,
+    excerpt,
     slug,
     size,
     mainImage {
@@ -172,25 +174,9 @@ export const STUDIO_QUERY = defineQuery(`
     },
 
     media[] {
-      _type == "mediaItem" => {
-        _type,
-        title,
-        url,
-        description,
-        image {
-          asset->{
-            _id,
-            url,
-            metadata {
-              dimensions {
-                width,
-                height,
-                aspectRatio
-              }
-            }
-          }
-        }
-      }
+      _type,
+      title,
+      link
     },
 
     bottomImage {

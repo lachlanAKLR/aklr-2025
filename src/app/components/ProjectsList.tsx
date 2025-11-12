@@ -1,47 +1,86 @@
+"use client";
+
 import Link from "next/link";
 import { PROJECTS_QUERYResult } from "../../../sanity.types";
+import { dataset, projectId } from "@/sanity/env";
+import imageUrlBuilder from "@sanity/image-url";
+import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { useState } from "react";
+import Image from "next/image";
+import useIsDesktop from "../utils/useIsDesktop";
+
+const builder = imageUrlBuilder({ projectId, dataset });
 
 export default function ProjectsList({
   projects,
 }: {
   projects: PROJECTS_QUERYResult;
 }) {
+  const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const isDesktop = useIsDesktop();
+
+  const visibleProjects = projects.filter((project) => {
+    const isComingSoon = project?.projectTags?.some(
+      (tag) => tag?.slug?.current === "coming-soon",
+    );
+    return !isComingSoon;
+  });
+
   return (
     <div className="p-2 pb-40 md:pb-96">
-      <h2 className="font-herbik-reg pb-4 text-base">More Projects</h2>
-      {projects.map((project, index) => (
-        <div
-          key={index}
-          className={`font-dia-bold grid grid-cols-12 gap-2 border-t-1 p-0 py-1.5 text-xs uppercase md:py-3 ${
-            index === projects.length - 1 ? "border-b-1" : ""
-          }`}
-        >
-          <h2 className="col-span-5 md:col-span-4">
-            <span className="">
-              {project?.client}
-              {project?.title ? "," : " "}
-            </span>
-            {project?.title ? <span className=""> {project.title}</span> : null}
-          </h2>
-          <div className="col-span-7 flex flex-wrap md:col-span-4">
-            <div>
-              {project?.projectTags?.map((tag, index) => (
-                <p className="w-auto pr-1 break-words" key={index}>
-                  {tag.title}
-                  {project?.projectTags &&
-                    index < project.projectTags.length - 1 &&
-                    ","}
-                </p>
-              ))}
-            </div>
-          </div>
-          <div className="col-start-6 col-end-12 row-start-2 pt-5 text-left md:col-start-11 md:col-end-13 md:row-start-1 md:pt-0 md:text-right">
-            <Link href={`/project/${project?.slug?.current}`}>
-              Go to Project →
+      <div className="font-dia-bold text-xs uppercase md:text-sm">
+        <h2>More Projects</h2>
+      </div>
+
+      {visibleProjects.map((project, index) => {
+        return (
+          <div
+            key={project._id ?? index}
+            className="font-herbik-reg relative w-full text-sm md:text-base"
+            onMouseEnter={() => setHoveredSlug(project?.slug?.current ?? null)}
+            onMouseLeave={() => setHoveredSlug(null)}
+          >
+            <Link href={`/project/${project?.slug?.current}`} className="w-fit">
+              <h2 className="group flex items-center transition-all duration-300 ease-out">
+                <span className="font-herbik-regular w-0 overflow-hidden pr-0 text-sm opacity-0 transition-all duration-300 ease-out group-hover:w-5 group-hover:opacity-100">
+                  →
+                </span>
+                <span className="pr-1">{project?.client},</span>
+                {project?.excerpt ? (
+                  <span className="font-herbik-italic">{project?.excerpt}</span>
+                ) : (
+                  <span className="font-herbik-italic">No project excerpt</span>
+                )}
+              </h2>
             </Link>
           </div>
-        </div>
-      ))}
+        );
+      })}
+
+      {visibleProjects.map((project, index) => {
+        if (!isDesktop) return null;
+
+        return (
+          <div key={project._id ?? `image-${index}`}>
+            <Image
+              src={builder
+                .image(project?.mainImage?.asset as SanityImageSource)
+                .width(10000)
+                .fit("max")
+                .auto("format")
+                .url()}
+              width={1000}
+              height={2000}
+              alt={project?.mainImage?.alt ?? ""}
+              className={`fixed right-2 bottom-2 w-80 transition-opacity duration-300 ${
+                hoveredSlug === project?.slug?.current
+                  ? "opacity-100"
+                  : "opacity-0"
+              }`}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

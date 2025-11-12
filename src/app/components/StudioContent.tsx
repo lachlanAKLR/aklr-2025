@@ -73,7 +73,7 @@ export default function StudioContent({
       )}
       {content?.titledLists && (
         <div className="site-grid">
-          <div className="site-grid col-span-12 md:col-span-8">
+          <div className="site-grid col-span-12 !pr-0 !pl-0 md:col-span-8">
             {content.titledLists.map((list, index) => (
               <div key={index} className="col-span-6 pt-16">
                 <div className="font-dia-bold text-xs uppercase md:text-sm">
@@ -93,6 +93,25 @@ export default function StudioContent({
           </div>
         </div>
       )}
+
+      {content?.media && (
+        <div className="px-2 pt-16">
+          <div className="font-dia-bold text-xs uppercase md:text-sm">
+            Press
+          </div>
+          <div className="flex flex-col gap-1">
+            {content?.media.map((item, index) => (
+              //@ts-expect-error: href error
+              <a href={item?.link} target="_blank" key={index} className="">
+                <p className="font-herbik-italic custom-underline text-sm md:text-base">
+                  {item.title}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       {content?.bottomImage && (
         <div className="site-grid py-32 md:py-96">
           <FadeInImage

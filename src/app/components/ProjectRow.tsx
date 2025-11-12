@@ -75,7 +75,6 @@ export default function ProjectRow({ project }: ProjectTileProps) {
             }
 
             if (image.type === "video" && image.posterImage?.asset) {
-              console.log(image.isInset);
               return (
                 <motion.div
                   key={index}

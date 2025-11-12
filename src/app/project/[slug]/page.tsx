@@ -34,7 +34,7 @@ export default async function Page({
     <main>
       <PageWrapper>
         <ProjectContent project={project} />
-        {/* <ProjectsList projects={projects} /> */}
+        <ProjectsList projects={projects} />
       </PageWrapper>
     </main>
   );
