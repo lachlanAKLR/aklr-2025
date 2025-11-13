@@ -23,7 +23,7 @@ export default function Nav() {
         <Link className="group" href="/">
           <span className="relative bottom-0.25">[</span>
           <span
-            className={`${isHome ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase opacity-0 transition-all duration-150 group-hover:opacity-100`}
+            className={`${isHome ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase transition-all duration-150 group-hover:opacity-100`}
           >
             *
           </span>
@@ -34,7 +34,7 @@ export default function Nav() {
         <Link className="group ml-2" href="/index">
           <span className="relative bottom-0.25">[</span>
           <span
-            className={`${isIndex ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase opacity-0 transition-all duration-150 group-hover:opacity-100`}
+            className={`${isIndex ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase transition-all duration-150 group-hover:opacity-100`}
           >
             *
           </span>
@@ -45,7 +45,7 @@ export default function Nav() {
         <Link className="group ml-2" href="/studio">
           <span className="relative bottom-0.25">[</span>
           <span
-            className={`${isStudioPage ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase opacity-0 transition-all duration-150 group-hover:opacity-100`}
+            className={`${isStudioPage ? "opacity-100" : "opacity-0"} relative top-[3.5px] px-0.5 uppercase transition-all duration-150 group-hover:opacity-100`}
           >
             *
           </span>
