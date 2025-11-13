@@ -7,7 +7,7 @@ export default function Nav() {
   const pathname = usePathname();
   const isStudio = pathname.includes("/admin");
 
-  const isHome = pathname === "/" || pathname.includes("/project");
+  const isHome = pathname === "/";
 
   const isIndex = pathname === "/index";
   const isStudioPage = pathname === "/studio";
