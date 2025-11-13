@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import { SanityLive } from "@/sanity/lib/live";
 import { diaBold, herbikIta, herbikReg } from "./utils/customFonts";
 import Footer from "./components/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "AKLR Studio — Alex Kimpton & Lachlan Richards",
@@ -72,6 +73,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics gaId="G-V4NMHX1P8D" />
+
       <body
         className={`text-black antialiased ${herbikReg.variable} ${herbikIta.variable} ${diaBold.variable}`}
       >
