@@ -13,6 +13,45 @@
  */
 
 // Source: schema.json
+export type UpdateItem = {
+  _type: "updateItem";
+  update?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  link?: string;
+};
+
 export type TitledList = {
   _type: "titledList";
   title?: string;
@@ -39,7 +78,7 @@ export type Studio = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -65,7 +104,6 @@ export type Studio = {
         _key: string;
       }
   >;
-  excerpt?: string;
   address?: Array<
     | {
         children?: Array<{
@@ -74,7 +112,7 @@ export type Studio = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -108,7 +146,7 @@ export type Studio = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -142,7 +180,7 @@ export type Studio = {
           _type: "span";
           _key: string;
         }>;
-        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -182,6 +220,11 @@ export type Studio = {
     {
       _key: string;
     } & MediaItem
+  >;
+  updates?: Array<
+    {
+      _key: string;
+    } & UpdateItem
   >;
   bottomImage?: {
     asset?: {
@@ -244,7 +287,7 @@ export type BlockContent = Array<
         _type: "span";
         _key: string;
       }>;
-      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+      style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
       listItem?: "bullet";
       markDefs?: Array<{
         href?: string;
@@ -297,6 +340,7 @@ export type Project = {
   _rev: string;
   client?: string;
   title?: string;
+  excerpt?: string;
   slug?: Slug;
   mainImage?: {
     asset?: {
@@ -460,6 +504,7 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
+  | UpdateItem
   | TitledList
   | MediaItem
   | Studio
@@ -488,7 +533,7 @@ export type PROJECTS_QUERYResult = Array<{
   _id: string;
   client: string | null;
   title: string | null;
-  excerpt: null;
+  excerpt: string | null;
   slug: Slug | null;
   size: "large" | "medium" | "small" | null;
   mainImage: {
@@ -552,7 +597,7 @@ export type PROJECT_QUERYResult = {
   _id: string;
   client: string | null;
   title: string | null;
-  excerpt: null;
+  excerpt: string | null;
   slug: Slug | null;
   size: "large" | "medium" | "small" | null;
   mainImage: {
@@ -620,7 +665,7 @@ export type PROJECT_QUERYResult = {
   > | null;
 } | null;
 // Variable: STUDIO_QUERY
-// Query: *[_type == "studio"][0]{    _id,    about,    address,    contact,    social,    studioImages[]{      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      }    },    titledLists[]{      title,      items    },    media[] {      _type,      title,      link    },    bottomImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    }  }
+// Query: *[_type == "studio"][0]{    _id,    about,    address,    contact,    social,    studioImages[]{      _type == "projectImage" => {        "type": _type,        asset {          asset->{            _id,            url,            metadata {              dimensions {                width,                height,                aspectRatio              }            }          },          altText        }      }    },    titledLists[]{      title,      items    },    media[] {      _type,      title,      link    },    updates[] {      update,        link    },    bottomImage {      asset->{        _id,        url,        metadata {          dimensions {            width,            height,            aspectRatio          }        }      },      alt    }  }
 export type STUDIO_QUERYResult = {
   _id: string;
   about: Array<
@@ -631,7 +676,7 @@ export type STUDIO_QUERYResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -665,7 +710,7 @@ export type STUDIO_QUERYResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -699,7 +744,7 @@ export type STUDIO_QUERYResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -733,7 +778,7 @@ export type STUDIO_QUERYResult = {
           _type: "span";
           _key: string;
         }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
         listItem?: "bullet";
         markDefs?: Array<{
           href?: string;
@@ -785,6 +830,43 @@ export type STUDIO_QUERYResult = {
     title: string | null;
     link: string | null;
   }> | null;
+  updates: Array<{
+    update: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
+          listItem?: "bullet";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          _type: "image";
+          _key: string;
+        }
+    > | null;
+    link: string | null;
+  }> | null;
   bottomImage: {
     asset: {
       _id: string;
@@ -815,7 +897,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_type == "project" && defined(slug.current)] | order(orderRank) {\n    _id,\n    client,\n    title,\n    excerpt,\n    slug,\n    size,\n    mainImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    },\n    projectTags[]->{\n      _id,\n      title,\n      slug\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        isInset,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url\n          }\n        }\n      }\n    }\n  }\n': PROJECTS_QUERYResult;
     '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    client,\n    title,\n    excerpt,\n    slug,\n    size,\n    mainImage {\n      isFourColumn,\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt,\n\n    },\n    info,\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        isFourColumn,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        isFourColumn,\n        isInset,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': PROJECT_QUERYResult;
-    '\n  *[_type == "studio"][0]{\n    _id,\n    about,\n    address,\n    contact,\n    social,\n\n    studioImages[]{\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      }\n    },\n\n    titledLists[]{\n      title,\n      items\n    },\n\n    media[] {\n      _type,\n      title,\n      link\n    },\n\n    bottomImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    }\n  }\n': STUDIO_QUERYResult;
+    '\n  *[_type == "studio"][0]{\n    _id,\n    about,\n    address,\n    contact,\n    social,\n\n    studioImages[]{\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      }\n    },\n\n    titledLists[]{\n      title,\n      items\n    },\n\n    media[] {\n      _type,\n      title,\n      link\n    },\n\n    updates[] {\n      update,  \n      link\n    },\n\n    bottomImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    }\n  }\n': STUDIO_QUERYResult;
     '\n  *[_type == "projectTag" && !(_id in path("drafts.**"))]\n  | order(title asc) {\n    _id,\n    title,\n    slug,\n    "count": count(*[_type == "project" && references(^._id)])\n  }\n': TAGS_QUERYResult;
   }
 }

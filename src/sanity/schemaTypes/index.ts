@@ -7,6 +7,7 @@ import video from "./objects/video";
 import { studioType } from "./studioType";
 import mediaItem from "./objects/mediaItem";
 import { titledList } from "./objects/titledList";
+import updateItem from "./objects/updateItem";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -18,5 +19,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     studioType,
     mediaItem,
     titledList,
+    updateItem,
   ],
 };

@@ -30,7 +30,6 @@ export const studioType = defineType({
       of: [{ type: "projectImage", title: "Image" }],
       validation: (Rule) => Rule.max(2),
     }),
-
     defineField({
       name: "titledLists",
       title: "Titled Lists",
@@ -41,6 +40,11 @@ export const studioType = defineType({
       name: "media",
       type: "array",
       of: [{ type: "mediaItem", title: "Media Item" }],
+    }),
+    defineField({
+      name: "updates",
+      type: "array",
+      of: [{ type: "updateItem", title: "Update Item" }],
     }),
     defineField({
       name: "bottomImage",

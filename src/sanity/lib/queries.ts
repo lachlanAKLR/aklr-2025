@@ -179,6 +179,11 @@ export const STUDIO_QUERY = defineQuery(`
       link
     },
 
+    updates[] {
+      update,  
+      link
+    },
+
     bottomImage {
       asset->{
         _id,

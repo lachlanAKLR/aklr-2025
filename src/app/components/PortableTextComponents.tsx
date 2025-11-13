@@ -7,8 +7,19 @@ export const portableTextComponents: Partial<PortableTextReactComponents> = {
         {children}
       </p>
     ),
+    h4: ({ children }) => (
+      <h4 className="font-herbik-reg pb-1 text-base">{children}</h4>
+    ),
+    small: ({ children }) => (
+      <p className="font-herbik-reg text-sm">{children}</p>
+    ),
   },
+
   marks: {
+    em: ({ children }) => (
+      <span className="font-herbik-italic">{children}</span>
+    ),
+
     link: ({ value, children }) => {
       const href = value?.href || "#";
       const isMailto = href.startsWith("mailto:");
