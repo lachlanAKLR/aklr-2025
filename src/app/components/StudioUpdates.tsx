@@ -19,14 +19,15 @@ export default function StudioUpdates({
 
   return (
     <motion.div
-      className="fixed right-2 bottom-2 flex flex-col gap-2"
+      layout
+      className="fixed right-2 bottom-2 flex flex-col-reverse gap-2"
       initial="hidden"
       animate="visible"
       variants={{
         visible: {
           transition: {
-            delay: 2,
-            staggerChildren: 0.15,
+            delayChildren: 2,
+            staggerChildren: 0.5,
           },
         },
       }}
@@ -34,15 +35,20 @@ export default function StudioUpdates({
       {updates.map((update, index) => (
         <motion.div
           key={index}
+          layout
           variants={{
-            hidden: { opacity: 0, y: 10 },
+            hidden: { opacity: 0, y: 40 },
             visible: { opacity: 1, y: 0 },
           }}
-          transition={{ duration: 0.3 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 25,
+          }}
           className="bg-grey-1 w-96 rounded-xl p-4"
         >
           <div className="font-dia-bold flex justify-between pb-2 text-xs uppercase">
-            <div>Update: {String(index + 1).padStart(2, "0")}</div>
+            <div>Update ({String(index + 1).padStart(2, "0")})</div>
             {update.link ? (
               <div>
                 <a href={update.link} target="_blank">
