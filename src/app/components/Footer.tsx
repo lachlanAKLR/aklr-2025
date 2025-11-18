@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
   const isStudio = pathname.includes("/admin");
-  const isBuildsPage = pathname === "/builds";
+  const isBuildsPage = pathname === "/build";
 
   return isStudio ? null : (
     <footer
-      className={`${isBuildsPage ? "bg-black text-white" : "bg-white text-black"} font-dia-bold site-grid pb-2 text-xs uppercase md:text-sm`}
+      className={`${isBuildsPage ? "bg-black text-white" : "bg-white text-black"} font-dia-bold site-grid relative z-100 pb-2 text-xs uppercase md:text-sm`}
     >
       <div className="col-span-12 md:col-start-1 md:col-end-5">
         <div className="pb-4">

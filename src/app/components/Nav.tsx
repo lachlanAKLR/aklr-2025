@@ -10,7 +10,7 @@ export default function Nav() {
   const isHome = pathname === "/" || pathname === "/gallery";
   const isIndex = pathname === "/index" || pathname === "/overview";
   const isStudioPage = pathname === "/studio";
-  const isBuildsPage = pathname === "/builds";
+  const isBuildsPage = pathname === "/build";
 
   return isStudio ? null : (
     <nav>

@@ -31,7 +31,7 @@ export default function BuildPopUp({
         className={`relative bottom-0 w-full rounded-xl bg-black p-4 text-white md:fixed md:right-2 md:bottom-2 md:w-92`}
       >
         <div className="font-dia-bold flex w-full justify-between text-xs uppercase">
-          <Link href="/builds">
+          <Link href="/build">
             <h4>AKLR Builds</h4>
           </Link>
           <button
@@ -43,7 +43,7 @@ export default function BuildPopUp({
         </div>
         <div>
           <Link
-            href="/builds"
+            href="/build"
             className={`${isOpen ? "block" : "hidden"} font-herbik-italic pt-2 text-base`}
           >
             <h4>
@@ -57,7 +57,7 @@ export default function BuildPopUp({
 
         {isOpen ? (
           <div className="mt-4 overflow-hidden">
-            <Link href="/builds">
+            <Link href="/build">
               <video
                 autoPlay
                 muted

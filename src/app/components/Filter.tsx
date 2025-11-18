@@ -63,7 +63,7 @@ export default function Filter({
         {projectTags.length > tagAmount && (
           <button
             onClick={() => setShowAllTags(!showAllTags)}
-            className={`${showAllTags ? "pointer-events-none hidden" : "pointer-events-all block"} font-dia-bold text-2xs bg-grey-1 hover:bg-grey-2 h-6 cursor-pointer rounded-4xl px-2.5 py-[6.5px] text-black uppercase transition-colors`}
+            className={`${showAllTags ? "pointer-events-none hidden" : "pointer-events-all block"} font-dia-bold text-2xs bg-grey-1 hover:bg-grey-2 h-5 cursor-pointer rounded-4xl px-2.5 py-[6.5px] text-black uppercase transition-colors`}
           >
             ...
           </button>

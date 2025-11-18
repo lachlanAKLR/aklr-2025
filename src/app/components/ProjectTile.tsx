@@ -25,6 +25,7 @@ export default function ProjectTile({
   onFilterChange,
 }: ProjectTileProps) {
   const isDesktop = useIsDesktop();
+
   const isComingSoon = project?.projectTags?.some(
     (tag) => tag?.slug?.current === "coming-soon",
   );
