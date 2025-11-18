@@ -2,40 +2,34 @@
 
 import Link from "next/link";
 import { BUILDS_QUERYResult } from "../../../sanity.types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import useIsDesktop from "../utils/useIsDesktop";
 
 export default function BuildPopUp({
   buildVideo,
 }: {
   buildVideo: BUILDS_QUERYResult;
 }) {
-  const isDesktop = useIsDesktop();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const featuredBuild = buildVideo.find((build) => build.isFeatured === true);
 
-  useEffect(() => {
-    setIsOpen(isDesktop);
-  }, [isDesktop]);
-
   return (
-    <motion.div
-      inherit={false}
-      initial="hidden"
-      animate="visible"
-      variants={{
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{
-        ease: "easeInOut",
-        duration: 0.5,
-        delay: 2,
-      }}
-      className={`fixed right-1.5 bottom-2 w-[calc(100%-12px)] rounded-xl bg-black p-4 text-white md:right-2 md:w-92`}
-    >
-      <div>
+    <div className="px-2 pb-20 md:px-0 md:pb-0">
+      <motion.div
+        inherit={false}
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0, y: 40 },
+          visible: { opacity: 1, y: 0 },
+        }}
+        transition={{
+          ease: "easeInOut",
+          duration: 0.5,
+          delay: 2,
+        }}
+        className={`relative bottom-0 w-full rounded-xl bg-black p-4 text-white md:fixed md:right-2 md:bottom-2 md:w-92`}
+      >
         <div className="font-dia-bold flex w-full justify-between text-xs uppercase">
           <Link href="/builds">
             <h4>AKLR Builds</h4>
@@ -80,7 +74,7 @@ export default function BuildPopUp({
             </Link>
           </div>
         ) : null}
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
