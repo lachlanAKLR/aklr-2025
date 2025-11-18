@@ -28,8 +28,22 @@ export default function BuildsScroller({ data }: { data: BUILDS_QUERYResult }) {
 
       {isDesktop ? (
         <div className="font-herbik-reg fixed bottom-0 left-0 flex w-full justify-between gap-5 p-2 text-base text-white">
-          <div className="flex gap-4">
+          <div className="flex gap-2">
             <div>{title}</div>
+            {credit && (
+              <div className="font-herbik-italic text-right text-white">
+                <span>
+                  Designed by{" "}
+                  {creditUrl ? (
+                    <a href={creditUrl} target="_blank">
+                      {credit}
+                    </a>
+                  ) : (
+                    credit
+                  )}
+                </span>
+              </div>
+            )}
 
             {projectTags?.length > 0 && (
               <div className="relative -bottom-0.5 flex gap-2">
@@ -42,21 +56,6 @@ export default function BuildsScroller({ data }: { data: BUILDS_QUERYResult }) {
                   </button>
                 ))}
               </div>
-            )}
-          </div>
-
-          <div className="font-herbik-italic text-right text-white">
-            {credit && (
-              <span>
-                Designed by{" "}
-                {creditUrl ? (
-                  <a href={creditUrl} target="_blank">
-                    {credit}
-                  </a>
-                ) : (
-                  credit
-                )}
-              </span>
             )}
           </div>
         </div>
