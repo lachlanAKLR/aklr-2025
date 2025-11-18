@@ -3,7 +3,7 @@ import { dataset, projectId } from "@/sanity/env";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { BUILDS_QUERYResult } from "../../../sanity.types";
 import useIsDesktop from "../utils/useIsDesktop";
-import useInView from "../utils/useInView";
+import FadeInImage from "../utils/FadeInImage";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -20,9 +20,6 @@ export default function BuildItem({
 }: BuildItemProps) {
   const videoUrl = videoFile?.asset?.url;
   const isDesktop = useIsDesktop();
-  const { ref, inView } = useInView({
-    rootMargin: "200px",
-  });
 
   const posterUrl = posterImage?.asset
     ? builder
@@ -36,7 +33,6 @@ export default function BuildItem({
     <div className="flex flex-col justify-center px-2 py-20 md:h-screen md:p-40 md:px-0 md:py-0">
       <div className="grid w-full grid-cols-12 gap-2">
         <div
-          ref={ref}
           className="group relative col-start-1 col-end-13 overflow-hidden rounded bg-black md:col-start-3 md:col-end-11"
           style={{ paddingTop: `${(2052 / 3450) * 100}%` }}
         >
@@ -45,7 +41,7 @@ export default function BuildItem({
             href={siteLink}
             target="_blank"
           >
-            {videoUrl && inView ? (
+            {videoUrl && isDesktop ? (
               <video
                 src={videoUrl}
                 poster={posterUrl}
@@ -55,7 +51,22 @@ export default function BuildItem({
                 muted
                 playsInline
               />
-            ) : null}
+            ) : (
+              posterUrl && (
+                <FadeInImage
+                  src={builder
+                    .image(posterImage?.asset as SanityImageSource)
+                    .width(10000)
+                    .fit("max")
+                    .auto("format")
+                    .url()}
+                  width={1000}
+                  height={2000}
+                  alt={`thumbnail of ${title}`}
+                  className="absolute top-0 left-0 h-full w-full object-cover"
+                />
+              )
+            )}
 
             {siteLink && (
               <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center align-middle">
