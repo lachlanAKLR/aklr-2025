@@ -5,9 +5,12 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
   const isStudio = pathname.includes("/admin");
+  const isBuildsPage = pathname === "/builds";
 
   return isStudio ? null : (
-    <footer className="font-dia-bold site-grid pb-2 text-xs uppercase md:text-sm">
+    <footer
+      className={`${isBuildsPage ? "bg-black text-white" : "bg-white text-black"} font-dia-bold site-grid pb-2 text-xs uppercase md:text-sm`}
+    >
       <div className="col-span-12 md:col-start-1 md:col-end-5">
         <div className="pb-4">
           AKLR Studio — a creative partnership

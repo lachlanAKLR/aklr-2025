@@ -5,21 +5,24 @@ import { usePathname } from "next/navigation";
 
 export default function Nav() {
   const pathname = usePathname();
+
   const isStudio = pathname.includes("/admin");
-
   const isHome = pathname === "/" || pathname === "/gallery";
-
   const isIndex = pathname === "/index" || pathname === "/overview";
-
   const isStudioPage = pathname === "/studio";
+  const isBuildsPage = pathname === "/builds";
 
   return isStudio ? null : (
     <nav>
-      <div className="font-dia-bold fixed top-2 left-2 z-50 text-sm md:text-base">
+      <div
+        className={`${isBuildsPage ? "text-white" : "text-black"} font-dia-bold fixed top-2 left-2 z-50 text-sm md:text-base`}
+      >
         <Link href="/">AKLR</Link>
       </div>
 
-      <div className="font-dia-bold fixed top-2 right-2 z-50 text-sm md:text-base">
+      <div
+        className={`${isBuildsPage ? "text-white" : "text-black"} font-dia-bold fixed top-2 right-2 z-50 text-sm md:text-base`}
+      >
         <Link className="group" href="/">
           <span className="relative bottom-0.25">[</span>
           <span

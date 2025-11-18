@@ -8,6 +8,8 @@ import { studioType } from "./studioType";
 import mediaItem from "./objects/mediaItem";
 import { titledList } from "./objects/titledList";
 import updateItem from "./objects/updateItem";
+import { buildType } from "./buildType";
+import { buildPageType } from "./buildPageType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -20,5 +22,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     mediaItem,
     titledList,
     updateItem,
+    buildType,
+    buildPageType,
   ],
 };

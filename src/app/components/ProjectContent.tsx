@@ -15,7 +15,7 @@ export default function ProjectContent({
 }) {
   return (
     <div>
-      <h2 className="inherit top-[6.5px] left-20 w-fit px-2 pt-16 text-base md:relative md:px-0 md:pt-0">
+      <h2 className="inherit top-[6.5px] left-20 w-fit px-2 pt-16 text-base md:fixed md:px-0 md:pt-0">
         <span className="font-herbik-reg">
           {project?.client}
           {project?.title ? "," : " "}
@@ -90,7 +90,7 @@ export default function ProjectContent({
       </div>
       {project?.info ? (
         <div className="site-grid pt-2 pb-16 md:pt-6 md:pb-32">
-          <div className="col-span-12 md:col-span-6">
+          <div className="col-span-12 pt-0 md:col-span-6 md:pt-6">
             <PortableText
               value={project.info}
               components={portableTextComponents}

@@ -210,3 +210,49 @@ export const TAGS_QUERY = defineQuery(`
     "count": count(*[_type == "project" && references(^._id)])
   }
 `);
+
+export const BUILDS_QUERY = defineQuery(`
+  *[_type == "build"] | order(orderRank) {
+    _id,
+    _type,
+    title,
+    videoFile{
+      asset->{
+        url,
+        mimeType,
+        size
+      }
+    },
+    posterImage{
+      asset->{
+        _id,
+        url,
+        metadata {
+          dimensions {
+            width,
+            height
+          }
+        }
+      },
+      crop,
+      hotspot
+    },
+    siteLink,
+    credit, 
+    creditUrl,
+    isFeatured,
+    projectTags[]->{
+      _id,
+      title,
+      slug
+    }
+  }
+`);
+
+export const BUILD_QUERY = defineQuery(`
+  *[_type == "buildPage"][0]{
+    _id,
+    _type,
+    buildText,
+  }
+`);

@@ -13,6 +13,91 @@
  */
 
 // Source: schema.json
+export type BuildPage = {
+  _id: string;
+  _type: "buildPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  buildText?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote" | "small";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  >;
+};
+
+export type Build = {
+  _id: string;
+  _type: "build";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  isFeatured?: boolean;
+  videoFile?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+  };
+  posterImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  siteLink?: string;
+  credit?: string;
+  creditUrl?: string;
+  projectTags?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "projectTag";
+  }>;
+  orderRank?: string;
+};
+
 export type UpdateItem = {
   _type: "updateItem";
   update?: Array<
@@ -504,6 +589,8 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
+  | BuildPage
+  | Build
   | UpdateItem
   | TitledList
   | MediaItem
@@ -890,6 +977,83 @@ export type TAGS_QUERYResult = Array<{
   slug: Slug | null;
   count: number;
 }>;
+// Variable: BUILDS_QUERY
+// Query: *[_type == "build"] | order(orderRank) {    _id,    _type,    title,    videoFile{      asset->{        url,        mimeType,        size      }    },    posterImage{      asset->{        _id,        url,        metadata {          dimensions {            width,            height          }        }      },      crop,      hotspot    },    siteLink,    credit,     creditUrl,    isFeatured,    projectTags[]->{      _id,      title,      slug    }  }
+export type BUILDS_QUERYResult = Array<{
+  _id: string;
+  _type: "build";
+  title: string | null;
+  videoFile: {
+    asset: {
+      url: string | null;
+      mimeType: string | null;
+      size: number | null;
+    } | null;
+  } | null;
+  posterImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+      metadata: {
+        dimensions: {
+          width: number | null;
+          height: number | null;
+        } | null;
+      } | null;
+    } | null;
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+  } | null;
+  siteLink: string | null;
+  credit: string | null;
+  creditUrl: string | null;
+  isFeatured: boolean | null;
+  projectTags: Array<{
+    _id: string;
+    title: string | null;
+    slug: Slug | null;
+  }> | null;
+}>;
+// Variable: BUILD_QUERY
+// Query: *[_type == "buildPage"][0]{    _id,    _type,    buildText,  }
+export type BUILD_QUERYResult = {
+  _id: string;
+  _type: "buildPage";
+  buildText: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal" | "small";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -899,5 +1063,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "project" && slug.current == $slug][0]{\n    _id,\n    client,\n    title,\n    excerpt,\n    slug,\n    size,\n    mainImage {\n      isFourColumn,\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt,\n\n    },\n    info,\n    projectTags[]->{\n      _id,\n      title\n    },\n    projectImages[] {\n      _type == "projectImage" => {\n        "type": _type,\n        isFourColumn,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      },\n      _type == "video" => {\n        "type": _type,\n        isFourColumn,\n        isInset,\n        videoFile {\n          asset->{\n            _id,\n            url\n          }\n        },\n        posterImage {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': PROJECT_QUERYResult;
     '\n  *[_type == "studio"][0]{\n    _id,\n    about,\n    address,\n    contact,\n    social,\n\n    studioImages[]{\n      _type == "projectImage" => {\n        "type": _type,\n        asset {\n          asset->{\n            _id,\n            url,\n            metadata {\n              dimensions {\n                width,\n                height,\n                aspectRatio\n              }\n            }\n          },\n          altText\n        }\n      }\n    },\n\n    titledLists[]{\n      title,\n      items\n    },\n\n    media[] {\n      _type,\n      title,\n      link\n    },\n\n    updates[] {\n      update,  \n      link\n    },\n\n    bottomImage {\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height,\n            aspectRatio\n          }\n        }\n      },\n      alt\n    }\n  }\n': STUDIO_QUERYResult;
     '\n  *[_type == "projectTag" && !(_id in path("drafts.**"))]\n  | order(title asc) {\n    _id,\n    title,\n    slug,\n    "count": count(*[_type == "project" && references(^._id)])\n  }\n': TAGS_QUERYResult;
+    '\n  *[_type == "build"] | order(orderRank) {\n    _id,\n    _type,\n    title,\n    videoFile{\n      asset->{\n        url,\n        mimeType,\n        size\n      }\n    },\n    posterImage{\n      asset->{\n        _id,\n        url,\n        metadata {\n          dimensions {\n            width,\n            height\n          }\n        }\n      },\n      crop,\n      hotspot\n    },\n    siteLink,\n    credit, \n    creditUrl,\n    isFeatured,\n    projectTags[]->{\n      _id,\n      title,\n      slug\n    }\n  }\n': BUILDS_QUERYResult;
+    '\n  *[_type == "buildPage"][0]{\n    _id,\n    _type,\n    buildText,\n  }\n': BUILD_QUERYResult;
   }
 }
