@@ -28,7 +28,7 @@ export default function BuildPopUp({
           duration: 0.5,
           delay: 2,
         }}
-        className={`relative bottom-0 w-full rounded-xl bg-black p-4 text-white md:fixed md:right-2 md:bottom-2 md:w-92`}
+        className={`relative bottom-0 z-100 w-full rounded-xl bg-black p-4 text-white md:fixed md:right-2 md:bottom-2 md:w-92`}
       >
         <div className="font-dia-bold flex w-full justify-between text-xs uppercase">
           <Link href="/build">

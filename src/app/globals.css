@@ -26,7 +26,7 @@ a[href^="address"] {
 }
 
 ::selection {
-  background-color: #d5f266; /* your highlight colour */
+  background-color: #d5f266;
 }
 
 @theme {
