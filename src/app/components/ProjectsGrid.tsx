@@ -1,16 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { PROJECTS_QUERYResult, TAGS_QUERYResult } from "../../../sanity.types";
+import {
+  BUILDS_QUERYResult,
+  PROJECTS_QUERYResult,
+  TAGS_QUERYResult,
+} from "../../../sanity.types";
 import Filter from "./Filter";
 import ProjectTile from "./ProjectTile";
+import BuildPopUp from "./BuildPopUp";
 
 export default function ProjectsGrid({
   projects,
   projectTags,
+  buildVideo,
 }: {
   projects: PROJECTS_QUERYResult;
   projectTags: TAGS_QUERYResult;
+  buildVideo: BUILDS_QUERYResult;
 }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const totalProjects = projects.length;
@@ -43,7 +50,7 @@ export default function ProjectsGrid({
         onFilterChange={handleTagClick}
         totalProjects={totalProjects}
       />
-      <div className="site-grid pt-10 pb-20">
+      <div className="site-grid pt-10 pb-10">
         {filteredProjects.map((project, index) => (
           <ProjectTile
             key={index}
@@ -53,6 +60,7 @@ export default function ProjectsGrid({
             onFilterChange={handleTagClick}
           />
         ))}
+        <BuildPopUp buildVideo={buildVideo} />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export default function Footer() {
 
   return isStudio ? null : (
     <footer
-      className={`${isBuildsPage ? "bg-black text-white" : "bg-white text-black"} font-dia-bold site-grid relative z-90 pb-2 text-xs uppercase md:text-sm`}
+      className={`${isBuildsPage ? "bg-black text-white" : "bg-white text-black"} font-dia-bold site-grid relative z-90 py-2 text-xs uppercase md:text-sm`}
     >
       <div className="col-span-12 md:col-start-1 md:col-end-5">
         <div className="pb-4">

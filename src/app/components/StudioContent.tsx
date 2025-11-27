@@ -5,6 +5,7 @@ import { dataset, projectId } from "@/sanity/env";
 import imageUrlBuilder from "@sanity/image-url";
 import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import FadeInImage from "../utils/FadeInImage";
+import StudioUpdates from "./StudioUpdates";
 
 const builder = imageUrlBuilder({ projectId, dataset });
 
@@ -14,7 +15,7 @@ export default function StudioContent({
   content: STUDIO_QUERYResult;
 }) {
   return (
-    <>
+    <div>
       <div className="site-grid pt-[52px]">
         {content?.about ? (
           <div className="col-span-12 md:col-span-6">
@@ -124,6 +125,8 @@ export default function StudioContent({
           />
         </div>
       )}
-    </>
+
+      <StudioUpdates content={content} />
+    </div>
   );
 }
