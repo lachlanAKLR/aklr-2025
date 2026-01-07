@@ -23,7 +23,7 @@ export function DisableDraftMode() {
   return (
     <button
       type="button"
-      className="fixed right-2 bottom-2 z-100 w-fit cursor-pointer border p-4 text-sm uppercase"
+      className="fixed left-2 bg-white bottom-2 z-100 w-fit cursor-pointer border p-4 text-sm uppercase"
       onClick={disable}
       disabled={pending}
     >
