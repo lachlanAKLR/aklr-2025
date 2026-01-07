@@ -6,6 +6,10 @@ import { diaBold, herbikIta, herbikReg } from "./utils/customFonts";
 import Footer from "./components/Footer";
 import { GoogleAnalytics } from "@next/third-parties/google";
 
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity/visual-editing";
+import { DisableDraftMode } from "./components/DisableDraftMode";
+
 export const metadata: Metadata = {
   title: "AKLR Studio — Alex Kimpton & Lachlan Richards",
   description:
@@ -66,11 +70,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const { isEnabled } = await draftMode();
+
   return (
     <html lang="en">
       <GoogleAnalytics gaId="G-V4NMHX1P8D" />
@@ -81,7 +88,13 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
-        <SanityLive />
+        {isEnabled && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+            <SanityLive />
+          </>
+        )}
       </body>
     </html>
   );
